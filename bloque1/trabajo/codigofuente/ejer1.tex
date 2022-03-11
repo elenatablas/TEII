@@ -1,0 +1,111 @@
+%%%%%%%%%% EJERCICIO 1 %%%%%%%%%%
+
+\begin{ejer}
+    \textbf{Ejercicio 1. Hacer los cálculos correspondientes con el grafo que se ha mostrado más arriba.}
+\end{ejer}
+
+\begin{sagecommandline}
+    sage: N = matrix(RDF,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0 , 0, 0]])
+    sage: N
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: Q = matrix(RDF ,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
+    sage: Q
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: A = matrix(RDF ,[[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
+    sage: A
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: P=0.85*Q+0.15*A
+    sage: P
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: show("P=",P," Valores propios:", P.eigenvalues())
+    sage: p=P.characteristic_polynomial()
+    sage: show("p(x)=  ",p)
+\end{sagecommandline}
+    
+    
+\begin{sagecommandline}
+    sage: D = diagonal_matrix([P.eigenvalues()[0], P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6]])
+    sage: show("D=", D)
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: show(P.eigenvectors_right())
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: show(P.eigenmatrix_right()[0])
+    sage: show(P.eigenmatrix_right()[1])
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: q1=(P.eigenvectors_right()[0])[1][0];
+    sage: q2=(P.eigenvectors_right()[1])[1][0];
+    sage: q3=(P.eigenvectors_right()[2])[1][0];
+    sage: q4=(P.eigenvectors_right()[3])[1][0];
+    sage: q5=(P.eigenvectors_right()[4])[1][0];
+    sage: q6=(P.eigenvectors_right()[5])[1][0];
+    sage: q7=(P.eigenvectors_right()[6])[1][0];
+    sage: show("q1=",q1," q2=",q2," q3=",q3," q4=",q4)
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: q1
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: Q=column_matrix([q1,q2,q3,q4,q5,q6,q7]);
+    sage: show("Q=",Q)
+    sage: print(norm(P-Q*D*Q.inverse())<=10^(-10))
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: mo=matrix(RDF,[1, 0, 0, 0, 0, 0, 0])
+    sage: show(mo*Q*D^100*Q.inverse())
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: z=(0.221980001405918,0.15271641500884678, 0.07125255257058884,0.08425917197181364, 0.12232440224893072,0.29349061966454393, 0.05397683712931336)
+    sage: z
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: sum(z)
+\end{sagecommandline}
+    
+\par OTRO MÉTODO
+    
+\begin{sagecommandline}
+    sage: G=P.transpose()
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: show("G=",G," Valores propios:", G.eigenvalues())
+    sage: p=G.characteristic_polynomial(); show("p(x)=  ",p)
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: show(G.eigenmatrix_right()[0])
+    sage: show(G.eigenmatrix_right()[1])
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: e1=(G.eigenvectors_right()[0])[1][0];
+    sage: e1
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: sum(e1)
+\end{sagecommandline}
+    
+\begin{sagecommandline}
+    sage: SOL=1/(sum(e1))*e1
+    sage: SOL
+\end{sagecommandline}

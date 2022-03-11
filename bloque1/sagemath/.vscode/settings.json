@@ -1,0 +1,4 @@
+{
+    "jupyter.jupyterServerType": "local",
+    "python.defaultInterpreterPath": "/Applications/SageMath-9-5.app/Contents/MacOS/Python"
+}
