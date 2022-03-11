@@ -1,0 +1,28 @@
+\newpage
+\begin{center}
+	{\fboxrule=4pt \fbox{\fboxrule=1pt
+		\fbox{\LARGE{\bfseries Contenedores con Docker}}}} \\
+	\addcontentsline{toc}{section}{Contenedores con Docker}
+	\setcounter{section}{2}
+	\setcounter{subsection}{0}
+	\rule{15cm}{0pt} \\
+\end{center}
+
+\subsection{Enunciado Docker}
+
+\begin{ejer}
+    \par El objetivo de esta práctica es conseguir tener tres contenedores capaces de hacer lo siguiente: 
+	\begin{itemize}
+		\item \textbf{Primer contenedor:} mostrar la fecha actual por pantalla. 
+		\item \textbf{Segundo contenedor:} mostrar la hora actual por pantalla. 
+		\item \textbf{Tercer contenedor:} generar un número aleatorio y mostrarlo por pantalla y pasar a la siguiente línea.
+	\end{itemize}
+	\par Estas tres informaciones se mostrarán una vez cada segundo mientras los contenedores están en funcionamiento. 
+	Dichos contenedores se deben basar en tres imágenes distintas que se deben crear, ejecutar y eliminar al mismo tiempo. 
+	Hacer uso de \textbf{docker-compose} para desarrollar un servicio basado en estos tres contenedores planteados. 
+\end{ejer}
+
+\input{codigofuente/parte2/s1}
+\input{codigofuente/parte2/s2}
+\input{codigofuente/parte2/s3}
+\input{codigofuente/parte2/s4}

@@ -1,0 +1,72 @@
+
+\subsection{Pasos VirtualBox}
+
+\subsubsection{Crear una VM mediante el Shell de VirtualBox, Vboxmanage: 1GB de ram, 2 cpus, 8 GB de disco duro SATA.}
+
+\begin{listing}[style=consola]
+    $ VBoxManage list vms
+\end{listing}
+
+\par El primer paso es crear  una máquina virtual 
+
+\begin{listing}[style=consola]
+    $ VBoxManage createvm --name Linux-Ubuntu --ostype Ubuntu_64 --register
+    $ VBoxManage modifyvm Linux-Ubuntu --memory 2048
+    $ VBoxManage createhd --filename /home/alumno/disco.vdi --size 1024
+    $ VBoxManage storagectl Linux-Ubuntu --name "SATA Controller" --add sata -- controller IntelAhci
+    $ VBoxManage storageattach Linux-Ubuntu --storagectl "SATA Controller" -- type HDD --port 1 --device 0 --medium /home/alumno/disco.vdi
+\end{listing}
+
+\subsubsection{Instalar ubuntu-server en la máquina. Instalarle el servicio nginx a la máquina.}
+
+\begin{listing}[style=consola]
+    $ VBoxManage storagectl Linux-Ubuntu --name "IDE Controller" --add ide -- controller PIIX4
+    $ VBoxManage storageattach Linux-Ubuntu --storagectl "IDE Controller" -- type DVDDrive --port 1 --device 0 --medium /home/alumno/ubuntu-18.04.4-server-amd64.iso
+\end{listing}
+
+
+\begin{listing}[style=consola]
+    $ VBoxManage showvminfo Linux-Ubuntu
+\end{listing}
+
+\subsubsection{Instalar Ubuntu-desktop en otra máquina. Instalar un navegador web.}
+
+\begin{listing}[style=consola]
+    $ VBoxManage createvm --name Linux-Ubuntu --ostype Ubuntu_64 --register
+    $ VBoxManage modifyvm Linux-Ubuntu --memory 2048
+    $ VBoxManage createhd --filename /home/alumno/disco.vdi --size 1024
+    $ VBoxManage storagectl Linux-Ubuntu --name "SATA Controller" --add sata -- controller IntelAhci
+    $ VBoxManage storageattach Linux-Ubuntu --storagectl "SATA Controller" -- type HDD --port 1 --device 0 --medium /home/alumno/disco.vdi
+    $ VBoxManage storagectl Linux-Ubuntu --name "IDE Controller" --add ide -- controller PIIX4
+    $ VBoxManage storageattach Linux-Ubuntu --storagectl "IDE Controller" -- type DVDDrive --port 1 --device 0 --medium /home/alumno/ubuntu-18.04.4-server-amd64.iso
+\end{listing}
+
+\subsubsection{Comprobar que podemos acceder al servidor web desde un navegador en el host.}
+\begin{listing}[style=consola]
+    $ 
+\end{listing}
+
+\subsubsection{Comprobar que podemos acceder al servidor web desde un navegador en la máquina guest desktop.}
+
+\begin{listing}[style=consola]
+    $ 
+\end{listing}
+
+\subsubsection{Transformar el disco de la máquina de formato .vdi a formato qcow2.}
+
+\begin{listing}[style=consola]
+    $ 
+\end{listing}
+
+\subsubsection{Redimensionar la maquina original servidor de VirtualBox con la utilidad Vboxmanage: 2GB de RAM y 10GB disco duro.} 
+
+\begin{listing}[style=consola]
+    $ 
+\end{listing}
+
+\subsubsection{Destruir las máquinas virtuales (utilizando comandos).}
+
+\begin{listing}[style=consola]
+    $ 
+\end{listing}
+

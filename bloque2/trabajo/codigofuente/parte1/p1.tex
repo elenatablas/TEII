@@ -1,0 +1,66 @@
+\begin{center}
+	{\fboxrule=4pt \fbox{\fboxrule=1pt
+		\fbox{\LARGE{\bfseries Virtualización con VirtualBox y Vagrant}}}} \\
+	\addcontentsline{toc}{section}{Virtualización con VirtualBox y Vagrant}
+	\setcounter{section}{1}
+	\setcounter{subsection}{0}
+	\rule{15cm}{0pt} \\
+\end{center}
+
+\subsection{Enunciado VirtualBox}
+
+\begin{ejer}
+    \par El objetivo de esta práctica es gestionar máquinas virtuales con el shells de VirtualBox. 
+	Para ello se deberán realizar las siguientes tareas:
+	\begin{itemize}
+		\item Crear una VM mediante el Shell de VirtualBox, Vboxmanage: 
+		\begin{itemize}
+			\item 1GB de ram, 2 cpus, 8 GB de disco duro SATA.
+		\end{itemize}
+		\item Instalar ubuntu-server en la máquina. Instalarle el servicio nginx a la máquina. 
+		\item Instalar Ubuntu-desktop en otra máquina. Instalar un navegador web. 
+		\item Comprobar que podemos acceder al servidor web desde un navegador en el host.
+		\item Comprobar que podemos acceder al servidor web desde un navegador en la máquina guest desktop.
+		\item Transformar el disco de la máquina de formato .vdi a formato qcow2. 
+		\item Redimensionar la maquina original servidor de VirtualBox con la utilidad \textbf{Vboxmanage:} 2GB de RAM y 10GB disco duro. 
+		\item Destruir las máquinas virtuales (utilizando comandos).
+	\end{itemize}
+\end{ejer}
+
+\input{codigofuente/parte1/s1}
+
+\subsection{Enunciado libvirt/kvm}
+//TODO: Cambiar algunas cosas que son relativas a VirtualBox y no a esto
+\begin{ejer}
+    \par El objetivo de esta práctica es gestionar máquinas virtuales con el hipervisor libvirt/kvm. 
+	Para ello se deberán realizar las siguientes tareas:
+	\begin{itemize}
+		\item Crear una VM mediante libvirt/kvm, Vboxmanage: 
+		\begin{itemize}
+			\item 1GB de ram, 2 cpus, 8 GB de disco duro SATA.
+		\end{itemize}
+		\item Instalar ubuntu-server en la máquina. Instalarle el servicio nginx a la máquina. 
+		\item Instalar Ubuntu-desktop en otra máquina. Instalar un navegador web. 
+		\item Comprobar que podemos acceder al servidor web desde un navegador en el host 
+		\item Comprobar que podemos acceder al servidor web desde un navegador en la máquina guest desktop.
+		\item Transformar el disco de la máquina de formato .vdi a formato qcow2. 
+		\item Redimensionar la maquina original servidor de libvirt/kvm con la utilidad \textbf{Vboxmanage:} 2GB de RAM y 10GB disco duro. 
+		\item Destruir las máquinas virtuales (utilizando comandos).
+	\end{itemize}
+\end{ejer}
+
+\input{codigofuente/parte1/s2}
+
+\subsection{Enunciado Vagrant}
+\begin{ejer}
+    \par El objetivo de esta práctica es gestionar máquinas virtuales con el hipervisor Vagrant. 
+	Para ello se deberán realizar las siguientes tareas:
+	\begin{itemize}
+		\item Crear una Box de Vagrant. 
+		\item Configurar el servidor Apache con Vagrant en la VM creada (Usar el provider Shell de Vagrant para configurar e instalar el Apache automáticamente al crear la VM).
+		\item Redimensionar con Vagrant la máquina a 2GB de RAM y 2 CPUs.
+		\item Comprobar que podemos acceder desde la máquina virtual creada con Vagrant al servidores web de la otra máquina virtual creada con VboxManage y viceversa.
+	\end{itemize}
+\end{ejer}
+
+\input{codigofuente/parte1/s3}
