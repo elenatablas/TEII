@@ -1,0 +1,7 @@
+Programa una función que toma como argumentos 
+una lista de cadenas, y una cadena con una palabra a buscar
+y devuelve la lista de los índices de los documentos
+que contienen dicha palabra Hay que buscar palabras enteras
+no parte de otras palabras y en la lista de cadenas 
+puede haber puntos y comas tras alguna palabra
+y eso no debe impedir que se detecte

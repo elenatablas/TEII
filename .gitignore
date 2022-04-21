@@ -4,3 +4,8 @@
 
 # material
 */material/* 
+
+*.odg
+
+# python
+*/.python-version
