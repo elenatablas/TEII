@@ -13,6 +13,9 @@
 # venv
 venv-teii/*
 
+# Jupiter checkpoints
+*/.ipynb_checkpoints/*
+
 # Ejercicios
 bloque3/Python/src/poema.txt
 bloque3/Python/src/salida
