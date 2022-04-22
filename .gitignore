@@ -9,3 +9,11 @@
 
 # python
 */.python-version
+
+# venv
+venv-teii/*
+
+# Ejercicios
+bloque3/Python/src/poema.txt
+bloque3/Python/src/salida
+bloque3/Python/src/ficheropalabras
