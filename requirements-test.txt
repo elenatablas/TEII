@@ -1,5 +1,7 @@
 # generic
 importlib-metadata==4.2
+mypy==0.942
+mypy-extensions==0.4.3
 pytest==7.0.1
 pytest-cov==3.0.0
 pytest-flake8==1.0.7
