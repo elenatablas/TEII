@@ -6,43 +6,111 @@
 
 \begin{sagecommandline}
     sage: N = matrix(RDF,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0 , 0, 0]])
-    sage: N
+    sage: latex("N(x)= " + latex(N))
 \end{sagecommandline}
-    
+
+$N=\left(\begin{array}{rrrrrrr}
+            0.0 & 0.0 & 0.0 & 0.0 & 0.5 & 0.5 & 0.0 \\
+            0.3333333333333333 & 0.0 & 0.3333333333333333 & 0.0 & 0.0 & 0.3333333333333333 & 0.0 \\
+            0.0 & 0.0 & 0.0 & 0.5 & 0.0 & 0.5 & 0.0 \\
+            0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0 & 0.0 \\
+            0.25 & 0.0 & 0.0 & 0.25 & 0.0 & 0.25 & 0.25 \\
+            0.5 & 0.5 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+            0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 
+        \end{array}
+    \right)$
+
 \begin{sagecommandline}
     sage: Q = matrix(RDF ,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
-    sage: Q
+    sage: latex("Q(x)= " + latex(Q))
 \end{sagecommandline}
-    
+
+$Q(x)= $
+    \resizebox{\textwidth}{!}{$\left(
+    \begin{array}{rrrrrrr}
+        0.0 & 0.0 & 0.0 & 0.0 & 0.5 & 0.5 & 0.0 \\ 
+        0.3333333333333333 & 0.0 & 0.3333333333333333 & 0.0 & 0.0 & 0.3333333333333333 & 0.0 \\
+        0.0 & 0.0 & 0.0 & 0.5 & 0.0 & 0.5 & 0.0 \\
+        0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0 & 0.0 \\
+        0.25 & 0.0 & 0.0 & 0.25 & 0.0 & 0.25 & 0.25 \\
+        0.5 & 0.5 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+        0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 
+    \end{array} \right)$
+    }
+
 \begin{sagecommandline}
     sage: A = matrix(RDF ,[[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
-    sage: A
+    sage: latex("A(x)= " + latex(A))
 \end{sagecommandline}
     
+$A(x)= $
+    \resizebox{\textwidth}{!}{$\left(
+    \begin{array}{rrrrrrr}
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 &
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 \\
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 \\
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 \\
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 \\
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 \\
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 \\
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285
+    \end{array}\right)$
+    }
+
 \begin{sagecommandline}
     sage: P=0.85*Q+0.15*A
-    sage: P
+    sage: latex("P(x)= " + latex(P))
 \end{sagecommandline}
-    
+
+$P(x)= $
+    \resizebox{\textwidth}{!}{$\left(
+    \begin{array}{rrrrrrr}
+    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
+    0.021428571428571425 & 0.4464285714285714 & 0.4464285714285714 &
+    0.021428571428571425 \\
+    0.30476190476190473 & 0.021428571428571425 & 0.30476190476190473 &
+    0.021428571428571425 & 0.021428571428571425 & 0.30476190476190473 & 
+    0.021428571428571425 \\
+    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
+    0.4464285714285714 & 0.021428571428571425 & 0.4464285714285714 &
+    0.021428571428571425 \\
+    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
+    0.021428571428571425 & 0.021428571428571425 & 0.8714285714285714 &
+    0.021428571428571425 \\
+    0.23392857142857143 & 0.021428571428571425 & 0.021428571428571425 &
+    0.23392857142857143 & 0.021428571428571425 & 0.23392857142857143 &
+    0.23392857142857143 \\
+    0.4464285714285714 & 0.4464285714285714 & 0.021428571428571425 &
+    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
+    0.021428571428571425 \\
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 &
+    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 &
+    0.14285714285714285 \end{array}\right)$
+    }
+
 \begin{sagecommandline}
-    sage: show("P=",P," Valores propios:", P.eigenvalues())
-    sage: p=P.characteristic_polynomial()
-    sage: show("p(x)=  ",p)
+    sage: latex("Valores propios:" + latex(P.eigenvalues()))
 \end{sagecommandline}
-    
+
+Valores propios: $\left[1.0, -0.0763072431302057 + 0.3867473130322981i, -0.0763072431302057 - 0.3867473130322981i, 0.14764003194716518 + 0.1397687525487749i, 0.14764003194716518 - 0.1397687525487749i, -0.5581138939084767, -0.3131231122968719\right]$
+
+\begin{sagecommandline}
+    sage: p=P.characteristic_polynomial()
+    sage: latex("p(x)= " + latex(p))
+\end{sagecommandline}
     
 \begin{sagecommandline}
     sage: D = diagonal_matrix([P.eigenvalues()[0], P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6]])
-    sage: show("D=", D)
+    sage: latex("D=" + latex(D))
 \end{sagecommandline}
     
 \begin{sagecommandline}
-    sage: show(P.eigenvectors_right())
+    sage: latex("TODO=" + latex(P.eigenvectors_right()))
 \end{sagecommandline}
     
 \begin{sagecommandline}
-    sage: show(P.eigenmatrix_right()[0])
-    sage: show(P.eigenmatrix_right()[1])
+    sage: latex("TODO=" + latex(P.eigenmatrix_right()[0]))
+    sage: latex("TODO=" + latex(P.eigenmatrix_right()[1]))
 \end{sagecommandline}
     
 \begin{sagecommandline}
@@ -53,27 +121,27 @@
     sage: q5=(P.eigenvectors_right()[4])[1][0];
     sage: q6=(P.eigenvectors_right()[5])[1][0];
     sage: q7=(P.eigenvectors_right()[6])[1][0];
-    sage: show("q1=",q1," q2=",q2," q3=",q3," q4=",q4)
+    sage: latex("q1="+ latex(q1) + " q2=" + latex(q2) + " q3="+ latex(q3) + " q4="+ latex(q4))
 \end{sagecommandline}
     
 \begin{sagecommandline}
-    sage: q1
+    sage: latex("q1= " + latex(q1))
 \end{sagecommandline}
     
 \begin{sagecommandline}
     sage: Q=column_matrix([q1,q2,q3,q4,q5,q6,q7]);
-    sage: show("Q=",Q)
-    sage: print(norm(P-Q*D*Q.inverse())<=10^(-10))
+    sage: latex("Q= " + latex(Q))
+    sage: latex(norm(P-Q*D*Q.inverse())<=10^(-10))
 \end{sagecommandline}
     
 \begin{sagecommandline}
     sage: mo=matrix(RDF,[1, 0, 0, 0, 0, 0, 0])
-    sage: show(mo*Q*D^100*Q.inverse())
+    sage: latex(mo*Q*D^100*Q.inverse())
 \end{sagecommandline}
     
 \begin{sagecommandline}
     sage: z=(0.221980001405918,0.15271641500884678, 0.07125255257058884,0.08425917197181364, 0.12232440224893072,0.29349061966454393, 0.05397683712931336)
-    sage: z
+    sage: latex("z= " + latex(z))
 \end{sagecommandline}
     
 \begin{sagecommandline}
@@ -87,18 +155,19 @@
 \end{sagecommandline}
     
 \begin{sagecommandline}
-    sage: show("G=",G," Valores propios:", G.eigenvalues())
-    sage: p=G.characteristic_polynomial(); show("p(x)=  ",p)
+    sage: latex("G="+ latex(G) + " Valores propios:" + latex(G.eigenvalues()))
+    sage: p=G.characteristic_polynomial()
+    sage: latex("p(x)=  "+ latex(p))
 \end{sagecommandline}
     
 \begin{sagecommandline}
-    sage: show(G.eigenmatrix_right()[0])
-    sage: show(G.eigenmatrix_right()[1])
+    sage: latex("TODO=" + latex(G.eigenmatrix_right()[0]))
+    sage: latex("TODO=" + latex(G.eigenmatrix_right()[1]))
 \end{sagecommandline}
     
 \begin{sagecommandline}
     sage: e1=(G.eigenvectors_right()[0])[1][0];
-    sage: e1
+    sage: latex("e1=  "+ latex(e1))
 \end{sagecommandline}
     
 \begin{sagecommandline}
@@ -107,5 +176,5 @@
     
 \begin{sagecommandline}
     sage: SOL=1/(sum(e1))*e1
-    sage: SOL
+    sage: latex("Solución=  "+ latex(SOL))
 \end{sagecommandline}
