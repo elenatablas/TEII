@@ -12,13 +12,20 @@
     \par La siguiente figura \ref{fig:redSimplificada} muestra una red simplificada con siete páginas.
 \end{ejer}
 
- %%% IMAGEN DE RED SIMPLIFICADA %%%
+\begin{sagecommandline}
+    sage: G4 = DiGraph({'a':['f','e'], 'b':['a','c','f'], 'c':['d','f'], 'd':['f'], 'e':['a','d','f','g'], 'f':['a','b']}, multiedges=True)
+    sage: G4plot = G4.plot()
+\end{sagecommandline}
+ %%% GRAFO DE RED SIMPLIFICADA %%%
 \begin{figure}[H]
-	\includegraphics[width=\textwidth/2]{redSimplificada}
+	\sageplot[scale=.7]{G4plot, axes=False}
 	\centering
 	\caption{Red Simplificada.}
     \label{fig:redSimplificada}
 \end{figure}
+%\sageplot[scale=.5]{G4plot, axes=False}
+
+
 \begin{ejer}
     \par La red está descrita por la matriz:
 \end{ejer}
