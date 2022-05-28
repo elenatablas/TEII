@@ -9,24 +9,46 @@
 
 \pagenumbering{roman}
  
-\lettrine[lines=3, depth = 0]{E}{n} este documento
+\lettrine[lines=3, depth = 0]{E}{n} este documento explico cómo he llevado a cabo 
+la práctica del bloque 1 de la asignatura Tecnologías Específicas de la Ingeniería 
+Informática que consiste en realizar dos ejercicios sobre el algoritmo de búsqueda de 
+PageRank siguiendo las especificaciones indicadas en el guión de la práctica.
 
-\par Para generar mi documentación he utilizado \LaTeX, en especial, he añadido
- en el preambulo el paquete ``\texttt{Sage\TeX}'' que permite incrustar los
+\par Esta memoria ha sido creada en el sistema de composición de textos \LaTeX.
+En especial, he añadido en el preambulo el paquete ``\texttt{Sage\TeX}'' que permite incrustar los
  resultados del cálculo \texttt{Sage} en este documento.
-\par Para hacer uso de este paquete:
-\begin{enumerate}
-	\item Instalar \LaTeX en el ordenador donde voy a realizar las prácticas
- 	\item Instalar \texttt{Python} y \texttt{Sage} el ordenador donde voy a realizar las prácticas
-  	\item Seguir las instrucciones de la documentación \url{https://doc.sagemath.org/html/en/tutorial/sagetex.html}
-\end{enumerate}
-\par Para generar este documento:
-\begin{enumerate}
-	\item Ejecutar \LaTeX en mi fichero \texttt{.tex}
- 	\item Ejecutar Sage en el fichero generado \texttt{.sage}
-  	\item Ejecutar \LaTeX en mi fichero \texttt{.tex} otra vez.
-\end{enumerate}
-
+\begin{itemize}
+	\item Para \textbf{hacer uso} de este paquete:
+		\begin{enumerate}
+			\item Instalar \LaTeX en el ordenador donde voy a realizar las prácticas
+			\item Instalar \texttt{Sage} con todos los extras y \texttt{Python} en el ordenador donde voy a realizar las prácticas
+		%%% IMAGEN DE SageMath-APP %%%
+		\begin{figure}[H]
+			\includegraphics[width=\textwidth/2]{sageMath-app}
+			\centering
+			\caption{Instalar la aplicación SageMath con todos sus extras.}
+			\label{fig:sageMath-app}
+		\end{figure}
+			\item Seguir las instrucciones de la documentación \url{https://doc.sagemath.org/html/en/tutorial/sagetex.html}
+		\end{enumerate}
+	\item Para \textbf{generar} este documento:
+		\begin{enumerate}
+			\item Ejecutar \LaTeX en mi fichero \texttt{.tex} principal
+			\item Ejecutar Sage en el fichero generado \texttt{.sage}
+				\begin{listing}[style=consola]
+$ sage b1.sagetex.sage
+Processing Sage code for b1.tex...
+Sage commandline 0 (line 15)
+Initializing plots directory
+Plot 0 (line 21)
+Sage commandline 1 (line 7)
+Inline formula 0 (line 24)
+...
+Sage processing complete. Run LaTeX on b1.tex again
+				\end{listing}
+			\item Ejecutar \LaTeX en mi fichero \texttt{.tex} otra vez.
+		\end{enumerate}
+\end{itemize}
 
 \newpage
 \pagenumbering{arabic}
