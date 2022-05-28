@@ -23,131 +23,187 @@ $N=\left(\begin{array}{rrrrrrr}
 
 $$N(x)= \sage{N}$$
 
+\par\textbf{$1^{er}$ MÉTODO}
+
 \begin{sagecommandline}
     sage: Q = matrix(RDF ,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
 \end{sagecommandline}
-
-$$Q(x)= \sage{Q}$$
+\resizebox{\textwidth}{!}{$
+    Q(x)= \sage{Q}
+$}
 
 \begin{sagecommandline}
     sage: A = matrix(RDF ,[[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
-    sage: latex("A(x)= " + latex(A))
-\end{sagecommandline}
-    
-$$A(x)= \sage{A}$$
+\end{sagecommandline} 
+\resizebox{\textwidth}{!}{$
+    A(x)= \sage{A}
+$}
 
 \begin{sagecommandline}
     sage: P=0.85*Q+0.15*A
-    sage: latex("P(x)= " + latex(P))
 \end{sagecommandline}
-
-$P(x)= $
-    \resizebox{\textwidth}{!}{$\left(
-    \begin{array}{rrrrrrr}
-    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
-    0.021428571428571425 & 0.4464285714285714 & 0.4464285714285714 &
-    0.021428571428571425 \\
-    0.30476190476190473 & 0.021428571428571425 & 0.30476190476190473 &
-    0.021428571428571425 & 0.021428571428571425 & 0.30476190476190473 & 
-    0.021428571428571425 \\
-    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
-    0.4464285714285714 & 0.021428571428571425 & 0.4464285714285714 &
-    0.021428571428571425 \\
-    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
-    0.021428571428571425 & 0.021428571428571425 & 0.8714285714285714 &
-    0.021428571428571425 \\
-    0.23392857142857143 & 0.021428571428571425 & 0.021428571428571425 &
-    0.23392857142857143 & 0.021428571428571425 & 0.23392857142857143 &
-    0.23392857142857143 \\
-    0.4464285714285714 & 0.4464285714285714 & 0.021428571428571425 &
-    0.021428571428571425 & 0.021428571428571425 & 0.021428571428571425 &
-    0.021428571428571425 \\
-    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 &
-    0.14285714285714285 & 0.14285714285714285 & 0.14285714285714285 &
-    0.14285714285714285 \end{array}\right)$
-    }
+\resizebox{\textwidth}{!}{$
+    P(x)= \sage{P}
+$}
 
 \begin{sagecommandline}
-    sage: latex("Valores propios:" + latex(P.eigenvalues()))
+    sage: P_valores_propios = P.eigenvalues()
 \end{sagecommandline}
-
-Valores propios: $\left[1.0, -0.0763072431302057 + 0.3867473130322981i, -0.0763072431302057 - 0.3867473130322981i, 0.14764003194716518 + 0.1397687525487749i, 0.14764003194716518 - 0.1397687525487749i, -0.5581138939084767, -0.3131231122968719\right]$
+\resizebox{\textwidth}{!}{$
+    Valores propios: \sage{P_valores_propios}
+$}
 
 \begin{sagecommandline}
     sage: p=P.characteristic_polynomial()
-    sage: latex("p(x)= " + latex(p))
 \end{sagecommandline}
-    
+\resizebox{\textwidth}{!}{$
+    p(x)= \sage{p}
+$}
+
 \begin{sagecommandline}
     sage: D = diagonal_matrix([P.eigenvalues()[0], P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6]])
-    sage: latex("D=" + latex(D))
 \end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: latex("TODO=" + latex(P.eigenvectors_right()))
+\resizebox{\textwidth}{!}{$
+    D= \sage{D}
+$}
+
+\begin{sagecommandline}[\textwidth]
+    sage: TODO1=P.eigenvectors_right()
 \end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: latex("TODO=" + latex(P.eigenmatrix_right()[0]))
-    sage: latex("TODO=" + latex(P.eigenmatrix_right()[1]))
+\resizebox{\textwidth}{!}{$
+    TODO= \sage{TODO1}
+$}
+
+\begin{sagecommandline}[\textwidth]
+    sage: P.eigenmatrix_right()[0]
+    sage: P.eigenmatrix_right()[1]
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    TODO= \sage{P.eigenmatrix_right()[0]}
+$}
+\resizebox{\textwidth}{!}{$
+    TODO= \sage{P.eigenmatrix_right()[1]}
+$}
     
 \begin{sagecommandline}
     sage: q1=(P.eigenvectors_right()[0])[1][0];
-    sage: q2=(P.eigenvectors_right()[1])[1][0];
-    sage: q3=(P.eigenvectors_right()[2])[1][0];
-    sage: q4=(P.eigenvectors_right()[3])[1][0];
-    sage: q5=(P.eigenvectors_right()[4])[1][0];
-    sage: q6=(P.eigenvectors_right()[5])[1][0];
-    sage: q7=(P.eigenvectors_right()[6])[1][0];
-    sage: latex("q1="+ latex(q1) + " q2=" + latex(q2) + " q3="+ latex(q3) + " q4="+ latex(q4))
 \end{sagecommandline}
-    
+\resizebox{\textwidth}{!}{$
+    q1= \sage{q1}
+$}
+
 \begin{sagecommandline}
-    sage: latex("q1= " + latex(q1))
+    sage: q2=(P.eigenvectors_right()[1])[1][0];
 \end{sagecommandline}
-    
+\resizebox{\textwidth}{!}{$
+    q2= \sage{q2}
+$}
+
+\begin{sagecommandline}
+    sage: q3=(P.eigenvectors_right()[2])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q3= \sage{q3}
+$}
+
+\begin{sagecommandline}
+    sage: q4=(P.eigenvectors_right()[3])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q4= \sage{q4}
+$}
+
+\begin{sagecommandline}
+    sage: q5=(P.eigenvectors_right()[4])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q5= \sage{q5}
+$}
+
+\begin{sagecommandline}
+    sage: q6=(P.eigenvectors_right()[5])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q6= \sage{q6}
+$}
+
+\begin{sagecommandline}
+    sage: q7=(P.eigenvectors_right()[6])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q7= \sage{q7}
+$}
+
 \begin{sagecommandline}
     sage: Q=column_matrix([q1,q2,q3,q4,q5,q6,q7]);
-    sage: latex("Q= " + latex(Q))
-    sage: latex(norm(P-Q*D*Q.inverse())<=10^(-10))
+    sage: norm(P-Q*D*Q.inverse())<=10^(-10)
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    Q= \sage{Q}
+$}
     
 \begin{sagecommandline}
     sage: mo=matrix(RDF,[1, 0, 0, 0, 0, 0, 0])
-    sage: latex(mo*Q*D^100*Q.inverse())
+    sage: mo*Q*D^100*Q.inverse()
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    \sage{mo*Q*D^100*Q.inverse()}
+$}
     
 \begin{sagecommandline}
     sage: z=(0.221980001405918,0.15271641500884678, 0.07125255257058884,0.08425917197181364, 0.12232440224893072,0.29349061966454393, 0.05397683712931336)
-    sage: latex("z= " + latex(z))
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    z= \sage{z}
+$}
     
 \begin{sagecommandline}
     sage: sum(z)
 \end{sagecommandline}
     
-\par OTRO MÉTODO
+\par\textbf{$2^{nd}$ MÉTODO}
     
 \begin{sagecommandline}
     sage: G=P.transpose()
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    G(x)= \sage{G}
+$}
     
 \begin{sagecommandline}
-    sage: latex("G="+ latex(G) + " Valores propios:" + latex(G.eigenvalues()))
+    sage: G_valores_propios=G.eigenvalues()
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    Valores propios: \sage{G_valores_propios}
+$}
+
+\begin{sagecommandline}
     sage: p=G.characteristic_polynomial()
-    sage: latex("p(x)=  "+ latex(p))
 \end{sagecommandline}
-    
+\resizebox{\textwidth}{!}{$
+    p(x)= \sage{p}
+$}
+
 \begin{sagecommandline}
-    sage: latex("TODO=" + latex(G.eigenmatrix_right()[0]))
-    sage: latex("TODO=" + latex(G.eigenmatrix_right()[1]))
+    sage: G.eigenmatrix_right()[0]
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    \sage{G.eigenmatrix_right()[0]}
+$}
+
+\begin{sagecommandline}
+    sage: G.eigenmatrix_right()[1]
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    \sage{G.eigenmatrix_right()[1]}
+$}
     
 \begin{sagecommandline}
     sage: e1=(G.eigenvectors_right()[0])[1][0];
-    sage: latex("e1=  "+ latex(e1))
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    e1= \sage{e1}
+$}
     
 \begin{sagecommandline}
     sage: sum(e1)
@@ -155,5 +211,5 @@ Valores propios: $\left[1.0, -0.0763072431302057 + 0.3867473130322981i, -0.07630
     
 \begin{sagecommandline}
     sage: SOL=1/(sum(e1))*e1
-    sage: latex("Solución=  "+ latex(SOL))
+    sage: SOL
 \end{sagecommandline}

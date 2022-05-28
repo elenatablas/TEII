@@ -9,7 +9,7 @@
     \par El algoritmo de búsqueda de PageRank de Google se basa en el modelo de navegación aleatoria, que es una caminata aleatoria en el gráfico de la web. 
     Para este gráfico, cada vértice representa una página de Internet. Una arista dirigida conecta $i$ con $j$ si hay un enlace de hipertexto de la página $i$ a la página $j$. 
     Cuando el usuario está en la página $i$, se mueve a una nueva página eligiendo entre los enlaces disponibles en $i$ de manera uniforme y aleatoria.
-    \par La siguiente figura \ref{fig:redSimplificada} muestra una red simplificada con siete páginas.
+    \par La siguiente figura \ref{redSimplificada} muestra una red simplificada con siete páginas.
 \end{ejer}
 
 \begin{sagecommandline}
@@ -20,10 +20,9 @@
 \begin{figure}[H]
 	\sageplot[scale=.7]{G4plot, axes=False}
 	\centering
+    \label{redSimplificada}
 	\caption{Red Simplificada.}
-    \label{fig:redSimplificada}
 \end{figure}
-%\sageplot[scale=.5]{G4plot, axes=False}
 
 
 \begin{ejer}
