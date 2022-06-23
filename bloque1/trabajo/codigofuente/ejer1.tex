@@ -3,6 +3,7 @@
 \begin{ejer}
     \textbf{Ejercicio 1. Hacer los cálculos correspondientes con el grafo que se ha mostrado más arriba.}
 \end{ejer}
+\addcontentsline{toc}{subsection}{Ejercicio 1}
 
 \begin{sagecommandline}
     sage: N = matrix(RDF,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0 , 0, 0]])
@@ -23,14 +24,13 @@ $N=\left(\begin{array}{rrrrrrr}
 
 $$N(x)= \sage{N}$$
 \par $N(x)$ representa la matriz de transición de la red descrita anteriormente.
-\par\textbf{$1^{er}$ MÉTODO}
+\subsubsection*{$1^{er}$ MÉTODO}
+\addcontentsline{toc}{subsubsection}{$1^{er}$ Método}
 
 \par El primer paso es crear una matriz estocástica $Q(x)$, que sirve para asegurarnos de que el camino
 aleatorio llega a todas las páginas de la red. Para ello, observo la matriz inicial y añado en la fila
 que no tiene ningún enlace de salida (por tanto un nodo colgante) el valor $1/n^o nodos$ a todas sus columnas para indicar que 
 a todos los nodos, incluido el mismo, se puede llegar con la misma aleatoridad y de manera uniforme. 
-
-\newpage
 
 \begin{sagecommandline}
     sage: Q = matrix(RDF ,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
@@ -201,8 +201,10 @@ $}
 \begin{sagecommandline}
     sage: sum(z)
 \end{sagecommandline}
-    
-\par\textbf{$2^{nd}$ MÉTODO}
+
+\newpage    
+\subsubsection*{$2^{nd}$ MÉTODO}
+\addcontentsline{toc}{subsubsection}{$2^{nd}$ Método}
     
 \begin{sagecommandline}
     sage: G=P.transpose()
