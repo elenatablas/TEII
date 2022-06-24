@@ -97,28 +97,9 @@ problema de que se atasque en pequeños subgrafos de la red.
     P(x)= \sage{P}
 $}
 
-\par Obtengo los valores propios de la matriz $P$.
-\begin{sagecommandline}
-    sage: P_valores_propios = P.eigenvalues()
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    Valores propios: \sage{P_valores_propios}
-$}
-\par $p$ es la función polinomial de la matriz $P$.
-\begin{sagecommandline}
-    sage: p=P.characteristic_polynomial()
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    p(x)= \sage{p}
-$}
-\par $D$ es la matriz donde la diagonal tiene los valores propios de $P$.
-\begin{sagecommandline}
-    sage: D = diagonal_matrix([P.eigenvalues()[0],P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6],P.eigenvalues()[7],P.eigenvalues()[8],P.eigenvalues()[9],P.eigenvalues()[10],P.eigenvalues()[11],P.eigenvalues()[12],P.eigenvalues()[13],P.eigenvalues()[14],P.eigenvalues()[15]])
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    D= \sage{D}
-$}
+\par El tercer paso, es obtener el camino aleatorio que es la matriz por columnas de los autovectores de $P$.
 
+\par Para ello, muestro los vectores propios de la matriz $P$ y asigno cada autovector.
 \begin{sagecommandline}[\textwidth]
     sage: P.eigenvectors_right()
 \end{sagecommandline}
@@ -235,15 +216,15 @@ $}
     q16= \sage{q16}
 $}
 
-\par El camino aleatorio resultante es aperiódico e irreducible.
+\par El camino aleatorio resultante $Q_C$ es asociable, aperiódico e irreducible.
 
 \begin{sagecommandline}
     sage: Q_C=column_matrix([q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16]);
-    sage: norm(P-Q_C*D*Q_C.inverse())<=10^(-10)
 \end{sagecommandline}
 \resizebox{\textwidth}{!}{$
     Q_C= \sage{Q_C}
 $}
+
 \begin{sagecommandline}
     sage: GQ = DiGraph(Q_C, multiedges=True)
     sage: Qplot = GQ.plot()
@@ -253,11 +234,30 @@ $}
     \sageplot[scale=.5]{Qplot, axes=False}
     \centering
     \label{caminoZ_2}
-    \caption{Camino aleatorio resultante es aperiódico e irreducible.}
+    \caption{Camino aleatorio resultante es asociable, aperiódico e irreducible.}
 \end{figure}
 
-\par El PageRank de una página en la red es la probabilidad estacionaria de esa página.
-    
+\par El cuarto paso, es obtener la matriz donde la diagonal tiene los valores propios de $P$.
+
+\par Obtengo los valores propios de la matriz $P$.
+\begin{sagecommandline}
+    sage: P_valores_propios = P.eigenvalues()
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    Valores propios: \sage{P_valores_propios}
+$}
+
+\par $D$ es la matriz donde la diagonal tiene los valores propios de $P$.
+\begin{sagecommandline}
+    sage: D = diagonal_matrix([P.eigenvalues()[0],P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6],P.eigenvalues()[7],P.eigenvalues()[8],P.eigenvalues()[9],P.eigenvalues()[10],P.eigenvalues()[11],P.eigenvalues()[12],P.eigenvalues()[13],P.eigenvalues()[14],P.eigenvalues()[15]])
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    D= \sage{D}
+$}
+
+\par Por último, calculo el PageRank de una página en la red que es la probabilidad estacionaria de esa página.
+\par Calculo primero la matriz estacionaria, sin importar por que nodo empiece.
+\par $\mu^(100) = \mu^(0) \cdot P^(100) = \mu^(0) \cdot Q_C \cdot D^(100) \cdot Q_C^(-1)$
 \begin{sagecommandline}
     sage: mo=matrix(RDF,[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     sage: mo*Q_C*D^100*Q_C.inverse()
@@ -457,7 +457,7 @@ $}
 \end{sagecommandline}
 
 \begin{sagecommandline}
-    sage: z=(0.030616772148504806,0.07626307878565806, 0.05150657580871245, 0.07070219766081234, 0.0737287188007328, 0.031508862421612535, 0.08877069919427012, 0.02876476367779198, 0.14622904976114215, 0.06830356213169397, 0.06509509970488973, 0.00990099009900966, 0.05766828706625104, 0.08867479996044474, 0.06716243109855179, 0.04510411167989654)
+    sage: z=(0.029570860773009678, 0.0754079780067131, 0.05158376088937878, 0.07079660905958886, 0.07428425236120793, 0.029691539730023933, 0.08747508847562997, 0.026786980661079315, 0.15000147486369722, 0.07062222025284678, 0.06531503351579934, 0.007345642247369766, 0.05753848456033725, 0.09235401457779774, 0.0673885084397732, 0.04383755158579216)
 \end{sagecommandline}
 
 \begin{sagecommandline}
@@ -644,12 +644,14 @@ $}
 \end{sagecommandline}
 
 \begin{sagecommandline}
-    sage: z=(0.030616772148504806,0.07626307878565806, 0.05150657580871245, 0.07070219766081234, 0.0737287188007328, 0.031508862421612535, 0.08877069919427012, 0.02876476367779198, 0.14622904976114215, 0.06830356213169397, 0.06509509970488973, 0.00990099009900966, 0.05766828706625104, 0.08867479996044474, 0.06716243109855179, 0.04510411167989654)
+    sage: z=(0.035479330884659266, 0.07716802121188286, 0.051931088549229475, 0.06922543274019202, 0.07163319737839043, 0.03803511605255818, 0.08988386279832349, 0.03579468921457365, 0.1320795678121636, 0.06254850473182186, 0.0640338188350678, 0.02031219384756239, 0.05813785531252352, 0.07857525064488464, 0.06601505333490647, 0.04914701665134973)
 \end{sagecommandline}
 
 \begin{sagecommandline}
     sage: sum(z)
 \end{sagecommandline}
+
+Puedo concluir que el resultado no varía mucho porque 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    APARTADO_3   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -660,5 +662,29 @@ $}
     \end{itemize}
 \end{ejer}
 \addcontentsline{toc}{subsubsection}{Apartado 3}
-
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \rowcolor{azul} \multicolumn{2}{|c|}{\textbf{Familia}}&\multicolumn{3}{c|}{\textbf{factor de amortiguamiento}} \\ \hline
+    \rowcolor{azul} \textbf{Número} & \textbf{Nombre} & \textbf{0.689} & \textbf{0.85} & \textbf{0.889} \\ \hline
+    1 & Acciaiuoli & \cellcolor{orange!25}{0.035479330884659266} & \cellcolor{orange!25}{0.030616772148504806} & \cellcolor{orange!25}{0.029570860773009678} \\ \hline
+    2 & Albizzi & \cellcolor{blue!25}{0.07716802121188286} & \cellcolor{blue!25}{0.07626307878565806} & \cellcolor{blue!25}{0.0754079780067131} \\ \hline
+    3 & Barbadori & \cellcolor{yellow!25}{0.051931088549229475} & \cellcolor{yellow!25}{0.05150657580871245} & \cellcolor{yellow!25}{0.05158376088937878} \\ \hline
+    4 & Bischeri & \cellcolor{violet!25}{0.06922543274019202} & \cellcolor{violet!25}{0.07070219766081234} & \cellcolor{violet!25}{0.07079660905958886} \\ \hline
+    5 & Castellani & \cellcolor{blue!25}{0.07163319737839043} & \cellcolor{blue!25}{0.0737287188007328} & \cellcolor{blue!25}{0.07428425236120793} \\ \hline
+    6 & Ginori & \cellcolor{orange!25}{0.03803511605255818} & \cellcolor{orange!25}{0.031508862421612535} & \cellcolor{orange!25}{0.029691539730023933} \\ \hline
+    7 & Guadagni & \cellcolor{blue!25}{0.08988386279832349} & \cellcolor{blue!25}{0.08877069919427012} & \cellcolor{blue!25}{0.08747508847562997} \\ \hline
+    8 & Lamberteschi & \cellcolor{orange!25}{0.03579468921457365} & \cellcolor{orange!25}{0.02876476367779198} & \cellcolor{orange!25}{0.026786980661079315} \\ \hline
+    9 & Médici & \cellcolor{green!25}{0.1320795678121636} & \cellcolor{green!25}{0.14622904976114215} & \cellcolor{green!25}{0.15000147486369722} \\ \hline
+    10 & Pazzi & \cellcolor{violet!25}{0.06254850473182186} & \cellcolor{violet!25}{0.06830356213169397} & \cellcolor{violet!25}{0.07062222025284678} \\ \hline
+    11 & Peruzzi & \cellcolor{violet!25}{0.0640338188350678} & \cellcolor{violet!25}{0.06509509970488973} & \cellcolor{violet!25}{0.06531503351579934} \\ \hline
+    12 & Pucci & \cellcolor{red!25}{0.02031219384756239} & \cellcolor{red!25}{0.00990099009900966} & \cellcolor{red!25}{0.007345642247369766} \\ \hline
+    13 & Ridolfi & \cellcolor{yellow!25}{0.05813785531252352} & \cellcolor{yellow!25}{0.05766828706625104} & \cellcolor{yellow!25}{0.05753848456033725} \\ \hline
+    14 & Salviati & \cellcolor{blue!25}{0.07857525064488464} & \cellcolor{blue!25}{0.08867479996044474} & \cellcolor{blue!25}{0.09235401457779774} \\ \hline
+    15 & Strozzi & \cellcolor{violet!25}{0.06601505333490647} & \cellcolor{violet!25}{0.06716243109855179} & \cellcolor{violet!25}{0.0673885084397732} \\ \hline
+    16 & Tornabuoni & \cellcolor{yellow!25}{0.04914701665134973} & \cellcolor{yellow!25}{0.04510411167989654} & \cellcolor{yellow!25}{0.04383755158579216}\\ \hline
+\end{tabular}
+\end{center}
+\par A partir de los datos obtenidos, he creado esta tabla donde se puede ver claramente que la familia más influente es 
+El PageRank de una página en la red es la probabilidad estacionaria de esa página.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
