@@ -24,8 +24,6 @@ $N=\left(\begin{array}{rrrrrrr}
 
 $$N(x)= \sage{N}$$
 \par $N(x)$ representa la matriz de transición de la red descrita anteriormente.
-\subsubsection*{$1^{er}$ MÉTODO}
-\addcontentsline{toc}{subsubsection}{$1^{er}$ Método}
 
 \par El primer paso es crear una matriz estocástica $Q(x)$, que sirve para asegurarnos de que el camino
 aleatorio llega a todas las páginas de la red. Para ello, observo la matriz inicial y añado en la fila
@@ -85,34 +83,12 @@ problema de que se atasque en pequeños subgrafos de la red.
 \resizebox{\textwidth}{!}{$
     P(x)= \sage{P}
 $}
-
-\par Obtengo los valores propios de la matriz $P$.
-\begin{sagecommandline}
-    sage: P_valores_propios = P.eigenvalues()
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    Valores propios: \sage{P_valores_propios}
-$}
-\par $p$ es la función polinomial de la matriz $P$.
-\begin{sagecommandline}
-    sage: p=P.characteristic_polynomial()
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    p(x)= \sage{p}
-$}
-\par $D$ es la matriz donde la diagonal tiene los valores propios de $P$.
-\begin{sagecommandline}
-    sage: D = diagonal_matrix([P.eigenvalues()[0], P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6]])
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    D= \sage{D}
-$}
-
-
+\par El tercer paso, es obtener el camino aleatorio que es la matriz por columnas de los autovectores de $P$.
+\par Para ello, muestro los vectores propios de la matriz $P$ y asigno cada autovector.
 \begin{sagecommandline}[\textwidth]
     sage: P.eigenvectors_right()
 \end{sagecommandline}
-    
+   
 \begin{sagecommandline}
     sage: q1=(P.eigenvectors_right()[0])[1][0];
 \end{sagecommandline}
@@ -162,15 +138,15 @@ $}
     q7= \sage{q7}
 $}
 
-\par El camino aleatorio resultante es aperiódico e irreducible.
+\par El camino aleatorio resultante $Q_C$ es asociable, aperiódico e irreducible.
 
 \begin{sagecommandline}
     sage: Q=column_matrix([q1,q2,q3,q4,q5,q6,q7]);
-    sage: norm(P-Q*D*Q.inverse())<=10^(-10)
 \end{sagecommandline}
 \resizebox{\textwidth}{!}{$
     Q= \sage{Q}
 $}
+
 \begin{sagecommandline}
     sage: GQ = DiGraph(Q, multiedges=True)
     sage: Qplot = GQ.plot()
@@ -180,76 +156,42 @@ $}
     \sageplot[scale=.5]{Qplot, axes=False}
     \centering
     \label{caminoZ}
-    \caption{Camino aleatorio resultante es aperiódico e irreducible.}
+    \caption{Camino aleatorio resultante es asociable, aperiódico e irreducible.}
 \end{figure}
 
-\par El PageRank de una página en la red es la probabilidad estacionaria de esa página.
-    
+\par El cuarto paso, es obtener la matriz donde la diagonal tiene los valores propios de $P$.
+\par Obtengo los valores propios de la matriz $P$.
+\begin{sagecommandline}
+    sage: P_valores_propios = P.eigenvalues()
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    Valores propios: \sage{P_valores_propios}
+$}
+
+\par $D$ es la matriz donde la diagonal tiene los valores propios de $P$.
+\begin{sagecommandline}
+    sage: D = diagonal_matrix([P.eigenvalues()[0], P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6]])
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    D= \sage{D}
+$}
+
+\par Por último, calculo el \texttt{PageRank} de una página en la red que es la probabilidad estacionaria de esa página.
+\par Calculo primero la matriz estacionaria, sin importar por que nodo empiece.
 \begin{sagecommandline}
     sage: mo=matrix(RDF,[1, 0, 0, 0, 0, 0, 0])
-    sage: mo*Q*D^100*Q.inverse()
 \end{sagecommandline}
 
+\par $\mu^{(100)} = \mu^{(0)} \cdot P^{(100)} = \mu^{(0)} \cdot Q_C \cdot D^{(100)} \cdot Q_C^{(-1)}$
+\begin{sagecommandline}
+    sage: mo*Q*D^100*Q.inverse()
+\end{sagecommandline}
+\par Observando los resultados, la página 'f' es la más relevante porque su \texttt{PageRank} es 0.29349061966454393.
 \begin{sagecommandline}
     sage: z=(0.221980001405918,0.15271641500884678, 0.07125255257058884,0.08425917197181364, 0.12232440224893072,0.29349061966454393, 0.05397683712931336)
 \end{sagecommandline}
 
-    
+\par Compruebo que la suma de todas las probabilidades estacionarias de las páginas da aproximadamente 1.
 \begin{sagecommandline}
     sage: sum(z)
-\end{sagecommandline}
-
-\newpage    
-\subsubsection*{$2^{nd}$ MÉTODO}
-\addcontentsline{toc}{subsubsection}{$2^{nd}$ Método}
-    
-\begin{sagecommandline}
-    sage: G=P.transpose()
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    G(x)= \sage{G}
-$}
-    
-\begin{sagecommandline}
-    sage: G_valores_propios=G.eigenvalues()
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    Valores propios: \sage{G_valores_propios}
-$}
-
-\begin{sagecommandline}
-    sage: p=G.characteristic_polynomial()
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    p(x)= \sage{p}
-$}
-
-\begin{sagecommandline}
-    sage: G.eigenmatrix_right()[0]
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    \sage{G.eigenmatrix_right()[0]}
-$}
-
-\begin{sagecommandline}
-    sage: G.eigenmatrix_right()[1]
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    \sage{G.eigenmatrix_right()[1]}
-$}
-    
-\begin{sagecommandline}
-    sage: e1=(G.eigenvectors_right()[0])[1][0];
-\end{sagecommandline}
-\resizebox{\textwidth}{!}{$
-    e1= \sage{e1}
-$}
-    
-\begin{sagecommandline}
-    sage: sum(e1)
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: SOL=1/(sum(e1))*e1
-    sage: SOL
 \end{sagecommandline}
