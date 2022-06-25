@@ -510,7 +510,7 @@ $}
 \par A partir de los datos obtenidos, he creado esta tabla \ref{fig:pageRankFamilias-2} donde se puede ver claramente que 
 la familia más influente es \texttt{Médici} porque su \texttt{PageRank} es 0.15000147486369722 y la que menos es 
 \texttt{Pucci} porque su \texttt{PageRank} es 0.007345642247369766.
-\par El orden de relevancia es el siguiente : Médici, Guadagni, Salviati, Albizzi, Castellani, Bischeri, Pazzi, Strozzi, Peruzzi,
+\par El orden de relevancia es el siguiente : Médici, Salviati, Guadagni, Albizzi, Castellani, Bischeri, Pazzi, Strozzi, Peruzzi,
 Ridolfi, Barbadori, Tornabuoni, Ginori, Acciaiuoli, Lamberteschi y Pucci.
 
 \begin{figure}[H]
@@ -744,8 +744,8 @@ $}
 \par A partir de los datos obtenidos, he creado esta tabla \ref{fig:pageRankFamilias-3} donde se puede ver claramente que 
 la familia más influente es \texttt{Médici} porque su \texttt{PageRank} es 0.1320795678121636 y la que menos es 
 \texttt{Pucci} porque su \texttt{PageRank} es 0.02031219384756239.
-\par El orden de relevancia es el siguiente : Médici, Guadagni, Salviati, Albizzi, Castellani, Bischeri, Pazzi, Strozzi, Peruzzi,
-Ridolfi, Barbadori, Tornabuoni, Ginori, Acciaiuoli, Lamberteschi y Pucci.
+\par El orden de relevancia es el siguiente : Médici, Guadagni, Salviati, Albizzi, Castellani, Bischeri, Strozzi, Peruzzi,  Pazzi,
+Ridolfi, Barbadori, Tornabuoni, Ginori, Lamberteschi, Acciaiuoli  y Pucci.
 
 \begin{figure}[H]
     \centering
@@ -791,7 +791,7 @@ Ridolfi, Barbadori, Tornabuoni, Ginori, Acciaiuoli, Lamberteschi y Pucci.
         5 & Castellani & 0.00265105498281749 \\ \hline
         6 & Ginori & 0.00834357632253425 \\ \hline
         7 & Guadagni & 0.00240877432269352 \\ \hline
-        8 & Lamberteschi 0.00900770855349434 \\ \hline
+        8 & Lamberteschi & 0.00900770855349434 \\ \hline
         9 & Médici & 0.0179219070515336 \\ \hline
         10 & Pazzi & 0.00807371552102492 \\ \hline
         11 & Peruzzi & 0.00128121468073154 \\ \hline
@@ -805,8 +805,19 @@ Ridolfi, Barbadori, Tornabuoni, Ginori, Acciaiuoli, Lamberteschi y Pucci.
     \label{fig:pageRankFamiliasDiferencia}
 \end{figure}
 
-\par Puedo concluir que el resultado no varía mucho, porque el orden de influencia es el mismo en ambos casos y la diferencia entre los \texttt{PageRanks} 
-es insignificante como se indica en la figura \ref{fig:pageRankFamiliasDiferencia}.
+\par Puedo concluir que el resultado varía de tal forma que influye en el orden de relevancia entre algunas familias. La diferencia entre los \texttt{PageRanks} 
+es significante como se indica en la figura \ref{fig:pageRankFamiliasDiferencia} de tal manera que cuando la diferencia de PageRank es de aproximadamente 0.01,
+cambia el orden de relevancia de los afectados.
+
+\par Caso 1. El orden de relevancia cuando \textbf{p=0.889} es el siguiente : Médici, $\color{rojoOscuro}{Salviati}$, Guadagni, Albizzi, Castellani, Bischeri, $\color{rojoOscuro}{Pazzi}$, Strozzi, Peruzzi,
+Ridolfi, Barbadori, Tornabuoni, Ginori, Acciaiuoli, $\color{rojoOscuro}{Lamberteschi}$ y Pucci.
+
+\par Caso 2. El orden de relevancia cuando \textbf{p=0.689} es el siguiente : Médici, Guadagni, $\color{rojoOscuro}{Salviati}$, Albizzi, Castellani, Bischeri, Strozzi, Peruzzi, $\color{rojoOscuro}{Pazzi}$,
+Ridolfi, Barbadori, Tornabuoni, Ginori, $\color{rojoOscuro}{Lamberteschi}$, Acciaiuoli  y Pucci.
+
+\par El resultado varía porque la probabilidad de que una persona decida no ser influenciada por ninguna familia enlazada por la familia donde se encuentra 
+y decida navegar a una nueva y aleatoria es mayor en el caso \textbf{p=0.689} con una diferencia de 0.2. A pesar de esto, como es más probable de ser influenciado 
+por los enlaces de las familias, el orden es igual exceptuando esos casos y los extremos siempre serán los mismos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    APARTADO_3   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -817,29 +828,45 @@ es insignificante como se indica en la figura \ref{fig:pageRankFamiliasDiferenci
     \end{itemize}
 \end{ejer}
 \addcontentsline{toc}{subsubsection}{Apartado 3}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-    \hline
-    \rowcolor{azul} \multicolumn{2}{|c|}{\textbf{Familia}}&\multicolumn{3}{c|}{\textbf{factor de amortiguamiento}} \\ \hline
-    \rowcolor{azul} \textbf{Número} & \textbf{Nombre} & \textbf{0.689} & \textbf{0.85} & \textbf{0.889} \\ \hline
-    1 & Acciaiuoli & \cellcolor{orange!25}{0.035479330884659266} & \cellcolor{orange!25}{0.030616772148504806} & \cellcolor{orange!25}{0.029570860773009678} \\ \hline
-    2 & Albizzi & \cellcolor{blue!25}{0.07716802121188286} & \cellcolor{blue!25}{0.07626307878565806} & \cellcolor{blue!25}{0.0754079780067131} \\ \hline
-    3 & Barbadori & \cellcolor{yellow!25}{0.051931088549229475} & \cellcolor{yellow!25}{0.05150657580871245} & \cellcolor{yellow!25}{0.05158376088937878} \\ \hline
-    4 & Bischeri & \cellcolor{violet!25}{0.06922543274019202} & \cellcolor{violet!25}{0.07070219766081234} & \cellcolor{violet!25}{0.07079660905958886} \\ \hline
-    5 & Castellani & \cellcolor{blue!25}{0.07163319737839043} & \cellcolor{blue!25}{0.0737287188007328} & \cellcolor{blue!25}{0.07428425236120793} \\ \hline
-    6 & Ginori & \cellcolor{orange!25}{0.03803511605255818} & \cellcolor{orange!25}{0.031508862421612535} & \cellcolor{orange!25}{0.029691539730023933} \\ \hline
-    7 & Guadagni & \cellcolor{blue!25}{0.08988386279832349} & \cellcolor{blue!25}{0.08877069919427012} & \cellcolor{blue!25}{0.08747508847562997} \\ \hline
-    8 & Lamberteschi & \cellcolor{orange!25}{0.03579468921457365} & \cellcolor{orange!25}{0.02876476367779198} & \cellcolor{orange!25}{0.026786980661079315} \\ \hline
-    9 & Médici & \cellcolor{green!25}{0.1320795678121636} & \cellcolor{green!25}{0.14622904976114215} & \cellcolor{green!25}{0.15000147486369722} \\ \hline
-    10 & Pazzi & \cellcolor{violet!25}{0.06254850473182186} & \cellcolor{violet!25}{0.06830356213169397} & \cellcolor{violet!25}{0.07062222025284678} \\ \hline
-    11 & Peruzzi & \cellcolor{violet!25}{0.0640338188350678} & \cellcolor{violet!25}{0.06509509970488973} & \cellcolor{violet!25}{0.06531503351579934} \\ \hline
-    12 & Pucci & \cellcolor{red!25}{0.02031219384756239} & \cellcolor{red!25}{0.00990099009900966} & \cellcolor{red!25}{0.007345642247369766} \\ \hline
-    13 & Ridolfi & \cellcolor{yellow!25}{0.05813785531252352} & \cellcolor{yellow!25}{0.05766828706625104} & \cellcolor{yellow!25}{0.05753848456033725} \\ \hline
-    14 & Salviati & \cellcolor{blue!25}{0.07857525064488464} & \cellcolor{blue!25}{0.08867479996044474} & \cellcolor{blue!25}{0.09235401457779774} \\ \hline
-    15 & Strozzi & \cellcolor{violet!25}{0.06601505333490647} & \cellcolor{violet!25}{0.06716243109855179} & \cellcolor{violet!25}{0.0673885084397732} \\ \hline
-    16 & Tornabuoni & \cellcolor{yellow!25}{0.04914701665134973} & \cellcolor{yellow!25}{0.04510411167989654} & \cellcolor{yellow!25}{0.04383755158579216}\\ \hline
-\end{tabular}
-\end{center}
-\par A partir de los datos obtenidos, he creado esta tabla donde se puede ver claramente que la familia más influente es 
-El PageRank de una página en la red es la probabilidad estacionaria de esa página.
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \rowcolor{azul} \multicolumn{2}{|c|}{\textbf{Familia}}&\multicolumn{3}{c|}{\textbf{factor de amortiguamiento}} \\ \hline
+        \rowcolor{azul} \textbf{Número} & \textbf{Nombre} & \textbf{0.689} & \textbf{0.85} & \textbf{0.889} \\ \hline
+        1 & Acciaiuoli & \cellcolor{orange!25}{0.035479330884659266} & \cellcolor{orange!25}{0.030616772148504806} & \cellcolor{orange!25}{0.029570860773009678} \\ \hline
+        2 & Albizzi & \cellcolor{blue!25}{0.07716802121188286} & \cellcolor{blue!25}{0.07626307878565806} & \cellcolor{blue!25}{0.0754079780067131} \\ \hline
+        3 & Barbadori & \cellcolor{yellow!25}{0.051931088549229475} & \cellcolor{yellow!25}{0.05150657580871245} & \cellcolor{yellow!25}{0.05158376088937878} \\ \hline
+        4 & Bischeri & \cellcolor{violet!25}{0.06922543274019202} & \cellcolor{violet!25}{0.07070219766081234} & \cellcolor{violet!25}{0.07079660905958886} \\ \hline
+        5 & Castellani & \cellcolor{blue!25}{0.07163319737839043} & \cellcolor{blue!25}{0.0737287188007328} & \cellcolor{blue!25}{0.07428425236120793} \\ \hline
+        6 & Ginori & \cellcolor{orange!25}{0.03803511605255818} & \cellcolor{orange!25}{0.031508862421612535} & \cellcolor{orange!25}{0.029691539730023933} \\ \hline
+        7 & Guadagni & \cellcolor{blue!25}{0.08988386279832349} & \cellcolor{blue!25}{0.08877069919427012} & \cellcolor{blue!25}{0.08747508847562997} \\ \hline
+        8 & Lamberteschi & \cellcolor{orange!25}{0.03579468921457365} & \cellcolor{orange!25}{0.02876476367779198} & \cellcolor{orange!25}{0.026786980661079315} \\ \hline
+        9 & Médici & \cellcolor{green!25}{0.1320795678121636} & \cellcolor{green!25}{0.14622904976114215} & \cellcolor{green!25}{0.15000147486369722} \\ \hline
+        10 & Pazzi & \cellcolor{violet!25}{0.06254850473182186} & \cellcolor{violet!25}{0.06830356213169397} & \cellcolor{violet!25}{0.07062222025284678} \\ \hline
+        11 & Peruzzi & \cellcolor{violet!25}{0.0640338188350678} & \cellcolor{violet!25}{0.06509509970488973} & \cellcolor{violet!25}{0.06531503351579934} \\ \hline
+        12 & Pucci & \cellcolor{red!25}{0.02031219384756239} & \cellcolor{red!25}{0.00990099009900966} & \cellcolor{red!25}{0.007345642247369766} \\ \hline
+        13 & Ridolfi & \cellcolor{yellow!25}{0.05813785531252352} & \cellcolor{yellow!25}{0.05766828706625104} & \cellcolor{yellow!25}{0.05753848456033725} \\ \hline
+        14 & Salviati & \cellcolor{blue!25}{0.07857525064488464} & \cellcolor{blue!25}{0.08867479996044474} & \cellcolor{blue!25}{0.09235401457779774} \\ \hline
+        15 & Strozzi & \cellcolor{violet!25}{0.06601505333490647} & \cellcolor{violet!25}{0.06716243109855179} & \cellcolor{violet!25}{0.0673885084397732} \\ \hline
+        16 & Tornabuoni & \cellcolor{yellow!25}{0.04914701665134973} & \cellcolor{yellow!25}{0.04510411167989654} & \cellcolor{yellow!25}{0.04383755158579216}\\ \hline
+    \end{tabular}
+    \caption{PageRank de las familias de la red dados diferentes factores de amortiguamiento.}
+    \label{fig:pageRankFamilias-4}
+\end{figure}
+\par A partir de los datos obtenidos en los anteriores apartados he creado esta tabla \ref{fig:pageRankFamilias-4} 
+y como he ido comentando el orden de influencia es diferente dependiendo del caso.
+
+\par Caso 1. El orden de relevancia cuando \textbf{p=0.889} es el siguiente : Médici, $\color{rojoOscuro}{Salviati}$, Guadagni, Albizzi, Castellani, Bischeri, $\color{rojoOscuro}{Pazzi}$, Strozzi, Peruzzi,
+Ridolfi, Barbadori, Tornabuoni, Ginori, Acciaiuoli, $\color{rojoOscuro}{Lamberteschi}$ y Pucci.
+
+\par Caso 0. El orden de relevancia cuando \textbf{p=0.85} es el siguiente : Médici, Guadagni, $\color{rojoOscuro}{Salviati}$, Albizzi, Castellani, Bischeri, $\color{rojoOscuro}{Pazzi}$, Strozzi, Peruzzi,
+Ridolfi, Barbadori, Tornabuoni, Ginori, Acciaiuoli, $\color{rojoOscuro}{Lamberteschi}$ y Pucci.
+
+\par Caso 2. El orden de relevancia cuando \textbf{p=0.689} es el siguiente : Médici, Guadagni, $\color{rojoOscuro}{Salviati}$, Albizzi, Castellani, Bischeri, Strozzi, Peruzzi, $\color{rojoOscuro}{Pazzi}$,
+Ridolfi, Barbadori, Tornabuoni, Ginori, $\color{rojoOscuro}{Lamberteschi}$, Acciaiuoli  y Pucci.
+
+\par Se puede observar como dependiendo de si la familia está conectada a un número mayor de familias, será más influente o en 
+el caso extremo de que no está relacionada como es el caso de la familia \texttt{Pucci} tendrá el menor \texttt{PageRank}, es decir, 
+la menor influencia posible entre todas las familias.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
