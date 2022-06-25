@@ -25,7 +25,7 @@ $N=\left(\begin{array}{rrrrrrr}
 $$N(x)= \sage{N}$$
 \par $N(x)$ representa la matriz de transición de la red descrita anteriormente.
 
-\par El primer paso es crear una matriz estocástica $Q(x)$, que sirve para asegurarnos de que el camino
+\par \textbf{El primer paso} es crear una matriz estocástica $Q(x)$, que sirve para asegurarnos de que el camino
 aleatorio llega a todas las páginas de la red. Para ello, observo la matriz inicial y añado en la fila
 que no tiene ningún enlace de salida (por tanto un nodo colgante) el valor $1/n^o nodos$ a todas sus columnas para indicar que 
 a todos los nodos, incluido el mismo, se puede llegar con la misma aleatoridad y de manera uniforme. 
@@ -37,7 +37,7 @@ a todos los nodos, incluido el mismo, se puede llegar con la misma aleatoridad y
     Q(x)= \sage{Q}
 $}
 
-\par El segundo paso, es obtener la matriz de transición de PageRank $P=pQ + (1-p)A$ para resolver el 
+\par \textbf{El segundo paso} es obtener la matriz de transición de PageRank $P=pQ + (1-p)A$ para resolver el 
 problema de que se atasque en pequeños subgrafos de la red.
 \par Donde:
 \begin{itemize}
@@ -83,8 +83,8 @@ problema de que se atasque en pequeños subgrafos de la red.
 \resizebox{\textwidth}{!}{$
     P(x)= \sage{P}
 $}
-\par El tercer paso, es obtener el camino aleatorio que es la matriz por columnas de los autovectores de $P$.
-\par Para ello, muestro los vectores propios de la matriz $P$ y asigno cada autovector.
+\par \textbf{El tercer paso} es obtener el camino aleatorio que es la matriz por columnas de los autovectores de $P$.
+Para ello, muestro los vectores propios de la matriz $P$ y asigno cada autovector.
 \begin{sagecommandline}[\textwidth]
     sage: P.eigenvectors_right()
 \end{sagecommandline}
@@ -159,7 +159,7 @@ $}
     \caption{Camino aleatorio resultante es asociable, aperiódico e irreducible.}
 \end{figure}
 
-\par El cuarto paso, es obtener la matriz donde la diagonal tiene los valores propios de $P$.
+\par \textbf{El cuarto paso} es obtener la matriz donde la diagonal tiene los valores propios de $P$.
 \par Obtengo los valores propios de la matriz $P$.
 \begin{sagecommandline}
     sage: P_valores_propios = P.eigenvalues()
@@ -176,8 +176,8 @@ $}
     D= \sage{D}
 $}
 
-\par Por último, calculo el \texttt{PageRank} de una página en la red que es la probabilidad estacionaria de esa página.
-\par Calculo primero la matriz estacionaria, sin importar por que nodo empiece.
+\par \textbf{Por último}, calculo el \texttt{PageRank} de una página en la red que es la probabilidad estacionaria de esa página.
+\par Calculo primero la matriz estacionaria, sin importar por qué nodo empiece.
 \begin{sagecommandline}
     sage: mo=matrix(RDF,[1, 0, 0, 0, 0, 0, 0])
 \end{sagecommandline}
@@ -186,7 +186,6 @@ $}
 \begin{sagecommandline}
     sage: mo*Q*D^100*Q.inverse()
 \end{sagecommandline}
-\par Observando los resultados, la página 'f' es la más relevante porque su \texttt{PageRank} es 0.29349061966454393.
 \begin{sagecommandline}
     sage: z=(0.221980001405918,0.15271641500884678, 0.07125255257058884,0.08425917197181364, 0.12232440224893072,0.29349061966454393, 0.05397683712931336)
 \end{sagecommandline}
@@ -195,3 +194,24 @@ $}
 \begin{sagecommandline}
     sage: sum(z)
 \end{sagecommandline}
+
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor{azul} \multicolumn{2}{|c|}{\textbf{Página}}& \\ \hline
+        \rowcolor{azul} \textbf{Número} & \textbf{Nombre} & \textbf{PageRank} \\ \hline
+        1 & a & \cellcolor{blue!25}{0.221980001405918} \\ \hline
+        2 & b & \cellcolor{blue!25}{0.15271641500884678}  \\ \hline
+        3 & c & \cellcolor{yellow!25}{0.07125255257058884}  \\ \hline
+        4 & d & \cellcolor{yellow!25}{0.08425917197181364} \\ \hline
+        5 & e & \cellcolor{blue!25}{0.12232440224893072}  \\ \hline
+        6 & f & \cellcolor{green!25}{0.29349061966454393} \\ \hline
+        7 & g & \cellcolor{red!25}{0.05397683712931336} \\ \hline
+    \end{tabular}
+	\caption{PageRank de las páginas de la red.}
+    \label{fig:pageRankPaginas}
+\end{figure}
+\par A partir de los datos obtenidos, he creado esta tabla \ref{fig:pageRankPaginas} donde se puede ver claramente que 
+la página 'f' es la más relevante porque su \texttt{PageRank} es 0.29349061966454393.
+\par El orden de relevancia es el siguiente : f, a, b, e, d, c y g.
