@@ -52,6 +52,7 @@ backgroundcolor=\color{gray75},
 \renewcommand{\footrulewidth}{1pt}
 
 % Símbolos matemáticos
+\usepackage{sagetex}
 \usepackage{amsmath}
 \usepackage{array}
 
@@ -117,6 +118,7 @@ backgroundcolor=\color{gray75},
 \definecolor{pgreen}{rgb}{0,0.5,0}
 \definecolor{pred}{rgb}{0.9,0,0}
 \definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\definecolor{azul}{rgb}{0.36, 0.54, 0.66}
 
 \usepackage{listings}
 \lstset{ 
@@ -126,6 +128,7 @@ backgroundcolor=\color{gray75},
 	framextopmargin=3pt,
 	framexbottommargin=3pt,
 	framexleftmargin=0.2cm,
+	framexrightmargin=0.2cm,
 	framesep=0pt,
 	rulesep=.4pt,
 	backgroundcolor=\color{gray97},
@@ -162,6 +165,7 @@ backgroundcolor=\color{gray75},
 \usepackage{tikz}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
+
 %https://ondahostil.wordpress.com/2017/05/17/lo-que-he-aprendido-cuadros-de-texto-de-colores-en-latex/
 \usepackage{lmodern}
 \usepackage{tcolorbox}
@@ -173,5 +177,5 @@ backgroundcolor=\color{gray75},
 \newtcolorbox[auto counter,number within=subsection]{ejer}[1][]
 {colback=blue!5!white,colframe=blue!75!black,fonttitle=\bfseries, title=#1}
 
-\usepackage{sagetex}
+
 

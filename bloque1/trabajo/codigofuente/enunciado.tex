@@ -9,16 +9,22 @@
     \par El algoritmo de búsqueda de PageRank de Google se basa en el modelo de navegación aleatoria, que es una caminata aleatoria en el gráfico de la web. 
     Para este gráfico, cada vértice representa una página de Internet. Una arista dirigida conecta $i$ con $j$ si hay un enlace de hipertexto de la página $i$ a la página $j$. 
     Cuando el usuario está en la página $i$, se mueve a una nueva página eligiendo entre los enlaces disponibles en $i$ de manera uniforme y aleatoria.
-    \par La siguiente figura \ref{fig:redSimplificada} muestra una red simplificada con siete páginas.
+    \par La siguiente figura \ref{redSimplificada} muestra una red simplificada con siete páginas.
 \end{ejer}
 
- %%% IMAGEN DE RED SIMPLIFICADA %%%
+\begin{sagecommandline}
+    sage: G4 = DiGraph({'a':['f','e'], 'b':['a','c','f'], 'c':['d','f'], 'd':['f'], 'e':['a','d','f','g'], 'f':['a','b']}, multiedges=True)
+    sage: G4plot = G4.plot()
+\end{sagecommandline}
+ %%% GRAFO DE RED SIMPLIFICADA %%%
 \begin{figure}[H]
-	\includegraphics[width=\textwidth/2]{redSimplificada}
+	\sageplot[scale=.7]{G4plot, axes=False}
 	\centering
+    \label{redSimplificada}
 	\caption{Red Simplificada.}
-    \label{fig:redSimplificada}
 \end{figure}
+
+
 \begin{ejer}
     \par La red está descrita por la matriz:
 \end{ejer}
@@ -40,7 +46,7 @@
 \begin{ejer}
     \par Tenga en cuenta que $N$ no es una matriz estocástica, ya que la página $g$ no tiene enlaces de salida, 
     de modo que la fila asociada a $g$ está formada completamente por ceros (y no suma 1). 
-    Para asegurarse de que el camino aleatorio llegua a todas las páginas de la red, el algoritmo debe tener en cuenta (i) 
+    Para asegurarse de que el camino aleatorio llega a todas las páginas de la red, el algoritmo debe tener en cuenta (i) 
     las páginas que no tienen enlaces de salida, llamadas nodos colgantes, y (ii) los grupos de páginas que pueden hacer que el camino se atasque en un subgrafo. 
     En la red del ejemplo, $g$ es un nodo colgante. Suponga que la red consta de $k$ páginas. En el algoritmo de PageRank, la solución para los nodos colgantes es 
     asumir que cuando el usuario aleatorio llega a una página de este tipo, salta a una nueva página en la red de manera uniforme y aleatoria.

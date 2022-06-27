@@ -3,109 +3,215 @@
 \begin{ejer}
     \textbf{Ejercicio 1. Hacer los cálculos correspondientes con el grafo que se ha mostrado más arriba.}
 \end{ejer}
+\addcontentsline{toc}{subsection}{Ejercicio 1}
 
 \begin{sagecommandline}
     sage: N = matrix(RDF,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0 , 0, 0]])
-    sage: N
 \end{sagecommandline}
-    
+
+\begin{comment}
+$N=\left(\begin{array}{rrrrrrr}
+            0.0 & 0.0 & 0.0 & 0.0 & 0.5 & 0.5 & 0.0 \\
+            0.3333333333333333 & 0.0 & 0.3333333333333333 & 0.0 & 0.0 & 0.3333333333333333 & 0.0 \\
+            0.0 & 0.0 & 0.0 & 0.5 & 0.0 & 0.5 & 0.0 \\
+            0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 1.0 & 0.0 \\
+            0.25 & 0.0 & 0.0 & 0.25 & 0.0 & 0.25 & 0.25 \\
+            0.5 & 0.5 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 \\
+            0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 & 0.0 
+        \end{array}
+    \right)$
+\end{comment}
+
+$$N(x)= \sage{N}$$
+\par $N(x)$ representa la matriz de transición de la red descrita anteriormente.
+
+\par \textbf{El primer paso} es crear una matriz estocástica $Q(x)$, que sirve para asegurarnos de que el camino
+aleatorio llega a todas las páginas de la red. Para ello, observo la matriz inicial y añado en la fila
+que no tiene ningún enlace de salida (por tanto un nodo colgante) el valor $1/n^o nodos$ a todas sus columnas para indicar que 
+a todos los nodos, incluido el mismo, se puede llegar con la misma aleatoridad y de manera uniforme. 
+
 \begin{sagecommandline}
     sage: Q = matrix(RDF ,[[0, 0, 0, 0, 0.5 , 0.5, 0],[1/3, 0, 1/3, 0, 0, 1/3, 0],[0, 0, 0, 0.5, 0 , 0.5, 0],[0, 0, 0, 0, 0, 1, 0],[0.25, 0, 0, 0.25, 0, 0.25, 0.25],[0.5, 0.5, 0, 0, 0, 0, 0],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
-    sage: Q
 \end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    Q(x)= \sage{Q}
+$}
+
+\par \textbf{El segundo paso} es obtener la matriz de transición de PageRank $P=pQ + (1-p)A$ para resolver el 
+problema de que se atasque en pequeños subgrafos de la red.
+\par Donde:
+\begin{itemize}
+    \item $Q$ es la matriz obtenida en el paso anterior.
+    \item $A$ es la matriz ($n^onodos \times n^onodos$), donde todos los nodos están conectados entre sí y cuyas 
+    entradas son $1/n^o nodos$.
+    \begin{sagecommandline}
+        sage: A = matrix(RDF ,[[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
+    \end{sagecommandline} 
+    \resizebox{\textwidth}{!}{$
+        A(x)= \sage{A}
+    $}
+    \begin{sagecommandline}
+        sage: GA = Graph(A, multiedges=True)
+        sage: Aplot = GA.plot()
+    \end{sagecommandline}
     
+    %%% GRAFO DE RED SIMPLIFICADA %%%
+    \begin{figure}[H]
+        \sageplot[scale=.3]{Aplot, axes=False}
+        \centering
+        \label{redA}
+        \caption{Red A donde todos los nodos están conectados entre sí.}
+    \end{figure}
+    \item $p$ es el factor de amortiguamiento propuesto por Brin y Page (1998) que tiene que ser un valor 
+    comprendido entre [0..1], en este caso particular Google estableció $p=0.85$.
+    \begin{sagecommandline}
+        sage: factor=0.85
+    \end{sagecommandline}
+    \item  $(1-p)$ es la probabilidad de que un internauta decida no seguir ningún enlace en la página y 
+    navegar a una nueva y aleatoria dentro de la red. Por otro lado, con probabilidad $p$, sigue los enlaces de 
+    la página como de costumbre.
+    \begin{sagecommandline}
+        sage: prob_nueva_pagina=1-factor
+        sage: prob_enlace=factor
+    \end{sagecommandline}
+\end{itemize}
+
+\par Con estos parámetros se obtiene la matriz $P$ estocástica.
 \begin{sagecommandline}
-    sage: A = matrix(RDF ,[[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7],[1/7, 1/7, 1/7, 1/7, 1/7, 1/7, 1/7]])
-    sage: A
+    sage: P=prob_enlace*Q+prob_nueva_pagina*A
 \end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: P=0.85*Q+0.15*A
-    sage: P
+\resizebox{\textwidth}{!}{$
+    P(x)= \sage{P}
+$}
+\par \textbf{El tercer paso} es obtener el camino aleatorio que es la matriz por columnas de los autovectores de $P$.
+Para ello, muestro los vectores propios de la matriz $P$ y asigno cada autovector.
+\begin{sagecommandline}[\textwidth]
+    sage: P.eigenvectors_right()
 \end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: show("P=",P," Valores propios:", P.eigenvalues())
-    sage: p=P.characteristic_polynomial()
-    sage: show("p(x)=  ",p)
-\end{sagecommandline}
-    
-    
-\begin{sagecommandline}
-    sage: D = diagonal_matrix([P.eigenvalues()[0], P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6]])
-    sage: show("D=", D)
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: show(P.eigenvectors_right())
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: show(P.eigenmatrix_right()[0])
-    sage: show(P.eigenmatrix_right()[1])
-\end{sagecommandline}
-    
+   
 \begin{sagecommandline}
     sage: q1=(P.eigenvectors_right()[0])[1][0];
-    sage: q2=(P.eigenvectors_right()[1])[1][0];
-    sage: q3=(P.eigenvectors_right()[2])[1][0];
-    sage: q4=(P.eigenvectors_right()[3])[1][0];
-    sage: q5=(P.eigenvectors_right()[4])[1][0];
-    sage: q6=(P.eigenvectors_right()[5])[1][0];
-    sage: q7=(P.eigenvectors_right()[6])[1][0];
-    sage: show("q1=",q1," q2=",q2," q3=",q3," q4=",q4)
 \end{sagecommandline}
-    
+\resizebox{\textwidth}{!}{$
+    q1= \sage{q1}
+$}
+
 \begin{sagecommandline}
-    sage: q1
+    sage: q2=(P.eigenvectors_right()[1])[1][0];
 \end{sagecommandline}
-    
+\resizebox{\textwidth}{!}{$
+    q2= \sage{q2}
+$}
+
+\begin{sagecommandline}
+    sage: q3=(P.eigenvectors_right()[2])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q3= \sage{q3}
+$}
+
+\begin{sagecommandline}
+    sage: q4=(P.eigenvectors_right()[3])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q4= \sage{q4}
+$}
+
+\begin{sagecommandline}
+    sage: q5=(P.eigenvectors_right()[4])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q5= \sage{q5}
+$}
+
+\begin{sagecommandline}
+    sage: q6=(P.eigenvectors_right()[5])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q6= \sage{q6}
+$}
+
+\begin{sagecommandline}
+    sage: q7=(P.eigenvectors_right()[6])[1][0];
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    q7= \sage{q7}
+$}
+
+\par El camino aleatorio resultante $Q_C$ es asociable, aperiódico e irreducible.
+
 \begin{sagecommandline}
     sage: Q=column_matrix([q1,q2,q3,q4,q5,q6,q7]);
-    sage: show("Q=",Q)
-    sage: print(norm(P-Q*D*Q.inverse())<=10^(-10))
 \end{sagecommandline}
-    
+\resizebox{\textwidth}{!}{$
+    Q= \sage{Q}
+$}
+
+\begin{sagecommandline}
+    sage: GQ = DiGraph(Q, multiedges=True)
+    sage: Qplot = GQ.plot()
+\end{sagecommandline}
+%%% GRAFO DE RED SIMPLIFICADA %%%
+\begin{figure}[H]
+    \sageplot[scale=.5]{Qplot, axes=False}
+    \centering
+    \label{caminoZ}
+    \caption{Camino aleatorio resultante es asociable, aperiódico e irreducible.}
+\end{figure}
+
+\par \textbf{El cuarto paso} es obtener la matriz donde la diagonal tiene los valores propios de $P$.
+\par Obtengo los valores propios de la matriz $P$.
+\begin{sagecommandline}
+    sage: P_valores_propios = P.eigenvalues()
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    Valores propios: \sage{P_valores_propios}
+$}
+
+\par $D$ es la matriz donde la diagonal tiene los valores propios de $P$.
+\begin{sagecommandline}
+    sage: D = diagonal_matrix([P.eigenvalues()[0], P.eigenvalues()[1],P.eigenvalues()[2],P.eigenvalues()[3],P.eigenvalues()[4],P.eigenvalues()[5],P.eigenvalues()[6]])
+\end{sagecommandline}
+\resizebox{\textwidth}{!}{$
+    D= \sage{D}
+$}
+
+\par \textbf{Por último}, calculo el \texttt{PageRank} de una página en la red que es la probabilidad estacionaria de esa página.
+\par Calculo primero la matriz estacionaria, sin importar por qué nodo empiece.
 \begin{sagecommandline}
     sage: mo=matrix(RDF,[1, 0, 0, 0, 0, 0, 0])
-    sage: show(mo*Q*D^100*Q.inverse())
 \end{sagecommandline}
-    
+
+\par $\mu^{(100)} = \mu^{(0)} \cdot P^{(100)} = \mu^{(0)} \cdot Q_C \cdot D^{(100)} \cdot Q_C^{(-1)}$
+\begin{sagecommandline}
+    sage: mo*Q*D^100*Q.inverse()
+\end{sagecommandline}
 \begin{sagecommandline}
     sage: z=(0.221980001405918,0.15271641500884678, 0.07125255257058884,0.08425917197181364, 0.12232440224893072,0.29349061966454393, 0.05397683712931336)
-    sage: z
 \end{sagecommandline}
-    
+
+\par Compruebo que la suma de todas las probabilidades estacionarias de las páginas da aproximadamente 1.
 \begin{sagecommandline}
     sage: sum(z)
 \end{sagecommandline}
-    
-\par OTRO MÉTODO
-    
-\begin{sagecommandline}
-    sage: G=P.transpose()
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: show("G=",G," Valores propios:", G.eigenvalues())
-    sage: p=G.characteristic_polynomial(); show("p(x)=  ",p)
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: show(G.eigenmatrix_right()[0])
-    sage: show(G.eigenmatrix_right()[1])
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: e1=(G.eigenvectors_right()[0])[1][0];
-    sage: e1
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: sum(e1)
-\end{sagecommandline}
-    
-\begin{sagecommandline}
-    sage: SOL=1/(sum(e1))*e1
-    sage: SOL
-\end{sagecommandline}
+
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \rowcolor{azul} \multicolumn{2}{|c|}{\textbf{Página}}& \\ \hline
+        \rowcolor{azul} \textbf{Número} & \textbf{Nombre} & \textbf{PageRank} \\ \hline
+        1 & a & \cellcolor{blue!25}{0.221980001405918} \\ \hline
+        2 & b & \cellcolor{blue!25}{0.15271641500884678}  \\ \hline
+        3 & c & \cellcolor{yellow!25}{0.07125255257058884}  \\ \hline
+        4 & d & \cellcolor{yellow!25}{0.08425917197181364} \\ \hline
+        5 & e & \cellcolor{blue!25}{0.12232440224893072}  \\ \hline
+        6 & f & \cellcolor{green!25}{0.29349061966454393} \\ \hline
+        7 & g & \cellcolor{red!25}{0.05397683712931336} \\ \hline
+    \end{tabular}
+	\caption{PageRank de las páginas de la red.}
+    \label{fig:pageRankPaginas}
+\end{figure}
+\par A partir de los datos obtenidos, he creado esta tabla \ref{fig:pageRankPaginas} donde se puede ver claramente que 
+la página 'f' es la más relevante porque su \texttt{PageRank} es 0.29349061966454393.
+\par El orden de relevancia es el siguiente : f, a, b, e, d, c y g.
