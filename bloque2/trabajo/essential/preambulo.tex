@@ -86,6 +86,8 @@
 \definecolor{pgreen}{rgb}{0,0.5,0}
 \definecolor{pred}{rgb}{0.9,0,0}
 \definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\definecolor{rojoOscuro}{RGB}{153,0,0}
+\definecolor{verdeOscuro}{RGB}{0,153,0}
 
 \usepackage{listings}
 \lstset{ 
@@ -112,6 +114,10 @@
 	numbersep=-7pt,
 	numberfirstline = false,
 	breaklines=true,
+%
+	morecomment=[f][\color{gray45}][4]{@@},
+  	morecomment=[f][\color{verdeOscuro}][2]{+\ },
+  	morecomment=[f][\color{rojoOscuro}][2]{-\ },
 }
 
 % minimizar fragmentado de listados
@@ -120,9 +126,52 @@
 
 \lstdefinestyle{consola}
 {
-	basicstyle=\color{gray97},
+	basicstyle=\footnotesize\color{gray97},
 	backgroundcolor=\color{black},
 }
+% Código en lenguaje YAML
+
+\newcommand\YAMLcolonstyle{\color{red}\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\bfseries}
+\newcommand\YAMLvaluestyle{\color{blue}\mdseries}
+
+\makeatletter
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+	keywords={true,false,null,y,n},
+	keywordstyle=\color{darkgray}\bfseries,
+	basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+	sensitive=false,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\YAMLvaluestyle\ttfamily,
+	moredelim=[l][\color{orange}]{\&},
+	moredelim=[l][\color{magenta}]{*},
+	moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+	morestring=[b]',
+	morestring=[b]",
+	literate =    {---}{{\ProcessThreeDashes}}3
+					{>}{{\textcolor{red}\textgreater}}1     
+					{|}{{\textcolor{red}\textbar}}1 
+					{\ -\ }{{\mdseries\ -\ }}3,
+%
+	morecomment=[f][\color{gray45}][4]{@@},
+	morecomment=[f][\color{verdeOscuro}][2]{+\ },
+	morecomment=[f][\color{rojoOscuro}][2]{-\ },
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+
+\newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
 
 %Llaves
 \usepackage{schemata}
