@@ -1,0 +1,22 @@
+# This is file `compose.yaml'
+
+# REQUIRED
+services:
+  fecha-actual:
+    container_name: primer-contenedor
+    image: fecha
+    build:
+      context: .
+      dockerfile: Dockerfile1
+  hora-actual:
+    container_name: segundo-contenedor
+    image: hora
+    build:
+      context: .
+      dockerfile: Dockerfile2
+  numero-aleatorio:
+    container_name: tercer-contenedor
+    image: numero
+    build: 
+      context: .
+      dockerfile: Dockerfile3

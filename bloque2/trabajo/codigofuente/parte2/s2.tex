@@ -2,8 +2,28 @@
 
 \subsection{Segundo contenedor: mostrar la hora actual por pantalla.}
 
-\subsubsection{TODO}
 
-\begin{listing}[style=consola]
-    $ 
+\subsubsection{Creación imagen hora}
+\par Existen imágenes oficiales, pero en este caso creo una sencilla a partir de una de ellas.
+La creación de esta imagen es exactamente igual que la anterior cambiando el nombre del script.
+\par \textbf{Dockerfile2}
+\begin{listing}
+    # 2 capas de esta nueva imagen
+    FROM ubuntu
+    
+    # Puede ir en cualquier nivel de la imagen, normalmente al inicio
+    LABEL version=1.0
+    LABEL description="Muestra la hora actual por pantalla cada segundo." 
+    LABEL vendor=elenatablas
+    
+    COPY hora.sh /hora.sh
+    ENTRYPOINT ["/hora.sh"] 
+\end{listing}
+
+\par \textbf{hora.sh}
+\par Este script muestra la hora cada segundo durante su ejecución.
+\begin{listing}
+    #!/bin/bash
+
+    while true; do echo "$(date +%T)"; sleep 1; done 
 \end{listing}

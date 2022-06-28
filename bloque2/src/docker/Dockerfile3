@@ -1,0 +1,10 @@
+# 2 capas de esta nueva imagen
+FROM ubuntu
+
+# Puede ir en cualquier nivel de la imagen, normalmente al inicio
+LABEL version=1.0
+LABEL description="Muestra un número aleatorio por pantalla cada segundo." 
+LABEL vendor=elenatablas
+
+COPY numero.sh /numero.sh
+ENTRYPOINT ["/numero.sh"]
