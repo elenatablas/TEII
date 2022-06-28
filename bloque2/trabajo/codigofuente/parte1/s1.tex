@@ -44,6 +44,12 @@ Por tanto, en \textbf{el segundo paso} modifico el número de CPUs y el tamaño 
     \caption{Información modificada de la VM \textit{teii-server}.}
     \label{fig:vboxmanage-showvminfo-segundo-paso}
  \end{figure}
+\par Además, configuro el adaptador de red con el mismo comando que antes para que 
+la máquina virtual pueda interactuar con el host y otras máquinas virtuales conectadas
+a la misma red. Este paso es útil para que otras máquinas puedan acceder a este servidor web con servicio \texttt{nginx}.
+\begin{listing}[style=consola]
+    $ VBoxManage modifyvm teii-server --nic1 hostonly --hostonlyadapter1 vboxnet2
+\end{listing}
 
 \par \textbf{El tercer paso} es la creación de un disco duro virtual. Como en un 
 ordenador real, la VM necesita uno para poder bootear y almacenar información del sistema y del usuario. 
@@ -78,16 +84,68 @@ Para ello debo utilizar tres comandos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Instalar ubuntu-server en la máquina. Instalarle el servicio nginx a la máquina.}
+\par \textbf{El primer paso} es descargar la imagen iso en el ordenador, en este caso he descargado
+la versión \texttt{ubuntu-16.04.7-server-amd64}.
+\par \textbf{El siguiente paso} es configurar el arranque de la maquina virtual para que 
+la instalación empiece cuando la VM arranque por primera vez. 
+\par \textbf{El tercer paso} es crear un dispositivo CD/DVD virtual y conectarlo. Además, 
+necesita un controlador. Utilizaré los mismos comandos descritos cuando la creación del disco duro virtual.
 
 \begin{listing}[style=consola]
-    $ VBoxManage showvminfo Linux-Ubuntu
+    $ VBoxManage storagectl teii-server --name "IDE Controller" --add ide
+    $ VBoxManage storageattach teii-server --storagectl "IDE Controller" --port 0  --device 0 --type dvddrive --medium /Users/elenatablas/Downloads/ubuntu-16.04.7-server-amd64.iso
 \end{listing}
-
-\subsubsection{Instalar Ubuntu-desktop en otra máquina. Instalar un navegador web.}
+\par Compruebo que la información del controlador IDE como indica la Figura \ref{fig:vboxmanage-showvminfo-controller}.
+%%% IMAGEN VBOXMANAGE SHOWVMINFO IDE CONTROLLER %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-showvminfo-controller}
+    \centering
+    \caption{Información del controlador \texttt{IDE} usado en la VM \textit{teii-server}.}
+    \label{fig:vboxmanage-showvminfo-controller}
+ \end{figure}
+ \par \textbf{El cuarto paso} es arrancar la maquina virtual usando el comando \texttt{startvm}, Figura \ref{fig:vboxmanage-startvm} 
+ y configurar los pasos iniciales.
+ %%% IMAGEN VBOXMANAGE STARTVM %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-startvm}
+    \centering
+    \caption{Arrancar por primera vez la VM \textit{teii-server}.}
+    \label{fig:vboxmanage-startvm}
+\end{figure}
+\par \textbf{El quinto paso} es apagar la maquina virtual con cualquier comando de estos dos:
 \begin{listing}[style=consola]
-    $ VBoxManage createvm --name teii-desktop --ostype Ubuntu_64 --register
+    $ VBoxManage controlvm teii-server acpipowerbutton
+    $ VBoxManage controlvm teii-server poweroff
 \end{listing}
-
+\par \textbf{El sexto paso} es eliminar el DVD de la configuración de la VM porque el sistema operativo ya está instalado.
+\begin{listing}[style=consola]
+    $ VBoxManage storageattach teii-server --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium none
+\end{listing}
+ %%% IMAGEN VBOXMANAGE STARTVM %%%
+ \begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-eliminar-dvd}
+    \centering
+    \caption{Eliminación del DVD de la configuración de la VM \textit{teii-server}.}
+    \label{fig:vboxmanage-eliminar-dvd}
+\end{figure}
+\par \textbf{Por último}, arranco la máquina virtual para ver que funciona correctamente e instalo el servicio nginx.
+\begin{listing}[style=consola]
+    $ VBoxManage controlvm teii-server acpipowerbutton
+    $ VBoxManage controlvm teii-server poweroff
+\end{listing}
+ %%% IMAGEN INSTALACIÓN NGINX %%%
+ \begin{figure}[H]
+    \includegraphics[width=\textwidth]{instalar-nginx}
+    \centering
+    \caption{Instalación del servicio \texttt{nginx} en la VM \textit{teii-server}.}
+    \label{fig:instalar-nginx}
+\end{figure}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Instalar ubuntu-desktop en otra máquina. Instalar un navegador web.}
+\par Los comandos de esta sección son los mismos mencionados en el proceso de creación e instalación de la 
+máquina virtual teii-server. Por tanto, las explicaciones se dan por dadas y en está sección 
+muestro todos los comandos necesarios y la instalación de un navegador web.
 \begin{listing}[style=consola]
     $ VBoxManage createvm --name Linux-Ubuntu --ostype Ubuntu_64 --register
     $ VBoxManage modifyvm Linux-Ubuntu --memory 2048
@@ -101,9 +159,18 @@ Para ello debo utilizar tres comandos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Comprobar que podemos acceder al servidor web desde un navegador en el host.}
-\begin{listing}[style=consola]
-    $ 
-\end{listing}
+\par En la Figura \ref{fig:comprobacion-host}, a la izquierda se puede ver la máquina virtual 
+corriendo con el servicio \texttt{nginx} activado y que su dirección IP es la \texttt{192.168.58.3}.
+Para acceder al servidor web desde mi host (macOS), abro el navegador web Opera y escribo la url \url{http://192.168.58.3}
+como se aprecia en el lado derecho de la Figura \ref{fig:comprobacion-host}.
+
+%%% IMAGEN COMPROBACIÓN HOST %%%
+ \begin{figure}[H]
+    \includegraphics[width=\textwidth]{comprobacion-host}
+    \centering
+    \caption{Comprobación acceso al servidor web \textit{teii-server} desde el host \texttt{macOS}.}
+    \label{fig:comprobacion-host}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
