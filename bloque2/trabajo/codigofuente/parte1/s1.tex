@@ -129,10 +129,6 @@ necesita un controlador. Utilizaré los mismos comandos descritos cuando la crea
     \label{fig:vboxmanage-eliminar-dvd}
 \end{figure}
 \par \textbf{Por último}, arranco la máquina virtual para ver que funciona correctamente e instalo el servicio nginx.
-\begin{listing}[style=consola]
-    $ VBoxManage controlvm teii-server acpipowerbutton
-    $ VBoxManage controlvm teii-server poweroff
-\end{listing}
  %%% IMAGEN INSTALACIÓN NGINX %%%
  \begin{figure}[H]
     \includegraphics[width=\textwidth]{instalar-nginx}
@@ -147,15 +143,54 @@ necesita un controlador. Utilizaré los mismos comandos descritos cuando la crea
 máquina virtual teii-server. Por tanto, las explicaciones se dan por dadas y en está sección 
 muestro todos los comandos necesarios y la instalación de un navegador web.
 \begin{listing}[style=consola]
-    $ VBoxManage createvm --name Linux-Ubuntu --ostype Ubuntu_64 --register
-    $ VBoxManage modifyvm Linux-Ubuntu --memory 2048
-    $ VBoxManage createhd --filename /home/alumno/disco.vdi --size 1024
-    $ VBoxManage storagectl Linux-Ubuntu --name "SATA Controller" --add sata -- controller IntelAhci
-    $ VBoxManage storageattach Linux-Ubuntu --storagectl "SATA Controller" -- type HDD --port 1 --device 0 --medium /home/alumno/disco.vdi
-    $ VBoxManage storagectl Linux-Ubuntu --name "IDE Controller" --add ide -- controller PIIX4
-    $ VBoxManage storageattach Linux-Ubuntu --storagectl "IDE Controller" -- type DVDDrive --port 1 --device 0 --medium /home/alumno/ubuntu-18.04.4-server-amd64.iso
+    $ VBoxManage createvm --name teii-desktop --ostype Ubuntu_64 --register
+    Virtual machine 'teii-desktop' is created and registered.
+    UUID: fee2325d-6f39-4053-ac37-d208dbd04e04
+    Settings file: '/Users/elenatablas/VirtualBox VMs/teii-desktop/teii-desktop.vbox'
+    $ VBoxManage modifyvm teii-desktop --cpus 2 --memory 1024
+    $ VBoxManage showvminfo teii-desktop | grep "Memory size"
+    Memory size:                 1024MB
+    $ VBoxManage showvminfo teii-desktop | grep "Number of CPUs"
+    Number of CPUs:              2
+    $ VBoxManage modifyvm teii-desktop --nic1 hostonly --hostonlyadapter1 vboxnet2
+    $ VBoxManage createhd --filename /Users/elenatablas/VirtualBox\ VMs/teii-desktop/teii-desktop.vdi --size 9216
+    0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+    Medium created. UUID: e57978cf-b59a-4373-a1fd-635c176ce949
+    $ VBoxManage storagectl teii-desktop --name "SATA Controller" --add sata --bootable on
+    $ VBoxManage storageattach teii-desktop --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium /Users/elenatablas/VirtualBox\ VMs/teii-desktop/teii-desktop.vdi
+    $ VBoxManage showmediuminfo /Users/elenatablas/VirtualBox\ VMs/teii-desktop/teii-desktop.vdi
+    UUID:           e57978cf-b59a-4373-a1fd-635c176ce949
+    Parent UUID:    base
+    State:          created
+    Type:           normal (base)
+    Location:       /Users/elenatablas/VirtualBox VMs/teii-desktop/teii-desktop.vdi
+    Storage format: VDI
+    Format variant: dynamic default
+    Capacity:       9216 MBytes
+    Size on disk:   2 MBytes
+    Encryption:     disabled
+    Property:       AllocationBlockSize=1048576
+    In use by VMs:  teii-desktop (UUID: fee2325d-6f39-4053-ac37-d208dbd04e04)
+    $ VBoxManage storagectl teii-desktop --name "IDE Controller" --add ide
+    $ VBoxManage storageattach teii-desktop --storagectl "IDE Controller" --port 0  --device 0 --type dvddrive --medium /Users/elenatablas/Downloads/ubuntu-16.04.7-desktop-amd64.iso
+    $ VBoxManage showvminfo teii-desktop | grep "IDE Controller"
+    Storage Controller Name (1):            IDE Controller
+    IDE Controller (0, 0): /Users/elenatablas/Downloads/ubuntu-16.04.7-desktop-amd64.iso (UUID: 7f11046c-c18b-4332-8ff6-ddd5d6b63e6e)
+    $ VBoxManage startvm teii-desktop
+    Waiting for VM "teii-desktop" to power on...
+    VM "teii-desktop" has been successfully started.
+    $ VBoxManage controlvm teii-desktop poweroff
+    $ VBoxManage storageattach teii-desktop --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium none 
+    $ VBoxManage startvm teii-desktop
 \end{listing}
-
+\par \textbf{Por último}, arranco la máquina virtual para ver que funciona correctamente y veo que viene firefox por defecto.
+ %%% IMAGEN INSTALACIÓN FIREFOX %%%
+ \begin{figure}[H]
+    \includegraphics[scale=0.6]{instalar-firefox}
+    \centering
+    \caption{Instalación del navegador web firefox en la VM \textit{teii-desktop}.}
+    \label{fig:instalar-firefox}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Comprobar que podemos acceder al servidor web desde un navegador en el host.}
@@ -176,9 +211,18 @@ como se aprecia en el lado derecho de la Figura \ref{fig:comprobacion-host}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Comprobar que podemos acceder al servidor web desde un navegador en la máquina guest desktop.}
 
-\begin{listing}[style=consola]
-    $ 
-\end{listing}
+\par En la Figura \ref{fig:comprobacion-desktop}, a la izquierda se puede ver la máquina virtual 
+corriendo con el servicio \texttt{nginx} activado y que su dirección IP es la \texttt{192.168.58.3}.
+Para acceder al servidor web desde la VM \textit{teii-desktop}, abro el navegador web Firefox y escribo la url \url{http://192.168.58.3}
+como se aprecia en el lado derecho de la Figura \ref{fig:comprobacion-desktop}.
+
+%%% IMAGEN COMPROBACIÓN TEII-DESKTOP %%%
+ \begin{figure}[H]
+    \includegraphics[width=\textwidth]{comprobacion-desktop}
+    \centering
+    \caption{Comprobación acceso al servidor web \textit{teii-server} desde la VM \textit{teii-desktop}.}
+    \label{fig:comprobacion-desktop}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Transformar el disco de la máquina de formato .vdi a formato qcow2.}
