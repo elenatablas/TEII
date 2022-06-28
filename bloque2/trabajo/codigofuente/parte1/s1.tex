@@ -226,24 +226,52 @@ como se aprecia en el lado derecho de la Figura \ref{fig:comprobacion-desktop}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Transformar el disco de la máquina de formato .vdi a formato qcow2.}
+\par Primero, converto el disco a \texttt{RAW} que es formato físico y ocupa toda la capacidad del disco. Además,
+es compatible con KVM. Para pasarlo a dinamico tengo que pasarlo de formato RAW a formato QCOW2 que es el formato de KVM dinámico.
 
 \begin{listing}[style=consola]
-    $ 
+    /Users/elenatablas/VirtualBox\ VMs/teii-server $ VBoxManage clonehd --format RAW teii-server.vdi teii-server.raw
+    0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+    Clone medium created in format 'RAW'. UUID: 641c1985-b349-47bd-8d43-f7d1333bf566
+    /Users/elenatablas/VirtualBox\ VMs/teii-server $ qemu-img convert -f raw teii-server.raw -O qcow2 teii-server.qcow2
 \end{listing}
-
+%%% IMAGEN FORMATOS %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{formatos-servidor}
+    \centering
+    \caption{Comprobación creación del disco de la VM \textit{teii-server} en distintos formato.}
+    \label{fig:formatos-servidor}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Redimensionar la maquina original servidor de VirtualBox con la utilidad Vboxmanage: 2GB de RAM y 10GB disco duro.} 
-
+\subsubsection{Redimensionar la máquina original servidor de VirtualBox con la utilidad Vboxmanage: 2GB de RAM y 10GB disco duro.} 
+\par Para la redimensión de la memoria RAM se realizan los mismos pasos que en la creación, modificando 
+con el comando \texttt{modifyvm}.
 \begin{listing}[style=consola]
-    $ 
+    $ Vboxmanage modifyvm teii-server --memory 2048
+    $ VBoxManage showvminfo teii-server | grep "Memory size"
+    Memory size:                 2048MB
 \end{listing}
-
+\par Como muestra la Figura \ref{fig:vboxmanage-vdi-resize}, utilizo el comando \texttt{modifyhd}
+para reajustar el disco duro de formato \texttt{.vdi} al tamaño requerido.
+%%% IMAGEN VBOXMANAGE VDI RESIZE %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-vdi-resize}
+    \centering
+    \caption{Redimensión del disco duro de la VM \textit{teii-server}.}
+    \label{fig:vboxmanage-vdi-resize}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Destruir las máquinas virtuales (utilizando comandos).}
+\par Elimino las dos máquinas virtuales con el comando \texttt{unregistervm}, como se puede 
+contemplar en la Figura \ref{fig:vboxmanage-unregistervm}.
+%%% IMAGEN VBOXMANAGE UNREGISTERVM %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-unregistervm}
+    \centering
+    \caption{Eliminación de las VM \textit{teii-server} y \textit{teii-desktop}.}
+    \label{fig:vboxmanage-unregistervm}
+\end{figure}
 
-\begin{listing}[style=consola]
-    $ 
-\end{listing}
 
