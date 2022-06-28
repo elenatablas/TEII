@@ -1,5 +1,4 @@
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SECCIÓN 5 - DOCKER COMPOSE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{docker-compose}
 \par \texttt{Docker Compose} es una herramienta de \texttt{Docker} 
 que sirve para construir, lanzar y gestionar
@@ -43,12 +42,12 @@ y fusiona las versiones \texttt{2.x} y \texttt{3.x}. Además, es implementada po
 
  %%% IMAGEN DOCKER-COMPOSE VERSION %%%
  \begin{figure}[H]
-	\includegraphics[width=\textwidth]{docker-compose-version}
+	\includegraphics[scale=0.15]{docker-compose-version}
 	\centering
 	\caption{Versiones del archivo \texttt{Compose}.}
     \label{fig:docker-compose-version}
 \end{figure}
-
+\newpage
 \par \textbf{Services:}
 \par El archivo \texttt{compose.yaml} se compone de servicios.
 En está práctica tengo que crear los tres servicios mencionados en las anteriores secciones.
@@ -85,56 +84,39 @@ el archivo \texttt{Dockerfile} que cada una tiene asignado con un nombre distint
 \end{lstlisting}
 
 \subsubsection{Construcción de los tres contenedores}
+\par El comando \texttt{docker compose build} busca en el directorio actual el archivo
+\texttt{compose.yaml} y construye los contenedores y las imágenes de cada servicio descrito 
+en ese fichero, como se puede apreciar en la Figura \ref{fig:docker-compose-build}.
 %%% IMAGEN DOCKER COMPOSE BUILD %%%
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{docker-compose-build}
+    \includegraphics[scale=0.25]{docker-compose-build}
     \centering
-    \caption{Construcción de los tres contenedores al mismo tiempo.}
+    \caption{Construcción de la composición de servicios.}
     \label{fig:docker-compose-build}
  \end{figure}
 
 \subsubsection{Ejecución de los tres contenedores}
-
-\begin{listing}[style=consola]
-    $ 
-\end{listing} 
+\par El comando \texttt{docker compose up}, crea una red donde aloja a los contenedores y 
+los ejecuta. Se puede observar como los tres servicios se ejecutan 
+a la vez cada segundo tal y como indica el segundo contenedor en la Figura \ref{fig:docker-compose-up}.
 
 %%% IMAGEN DOCKER COMPOSE UP %%%
 \begin{figure}[H]
-   \includegraphics[width=\textwidth]{docker-compose-up}
+   \includegraphics[scale=0.3]{docker-compose-up}
    \centering
-   \caption{Ejecución de los tres contenedores al mismo tiempo.}
+   \caption{Ejecución de la composición de servicios.}
    \label{fig:docker-compose-up}
 \end{figure}
 
 
 \subsubsection{Eliminación de los tres contenedores}
-
+\par Utilizo el comando \texttt{docker compose down} para deterner los contenedores y eliminar la red anteriormente
+creada por defecto (\texttt{Network src\_default}) junto con los contenedores, como se puede contemplar en la 
+Figura \ref{fig:docker-compose-down}.
  %%% IMAGEN DOCKER COMPOSE DOWN %%%
  \begin{figure}[H]
 	\includegraphics[width=\textwidth]{docker-compose-down}
 	\centering
-	\caption{Eliminación de los tres contenedores al mismo tiempo.}
+	\caption{Eliminación de la composición de servicios.}
     \label{fig:docker-compose-down}
 \end{figure}
-
-
-\begin{listing}[style=consola]
-  $ compose build
-\end{listing}
-\par Docker-conpose crea un red donde aloja a los contenedores
-\begin{listing}[style=consola]
-  $ compose up -d
-\end{listing}
-\par Compruebo que se ha creado correctamente
-\begin{listing}[style=consola]
-  $ docker ps
-  $ compose down
-\end{listing}
-\par Primero, detiene el contenedor, después lo elimina y también la red creada por defecto al crear el contenedor.
-\begin{listing}[style=consola]
-  $ compose down
-\end{listing}
-\begin{listing}[style=consola]
-  $ docker logs -f test
-\end{listing}

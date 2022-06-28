@@ -2,8 +2,27 @@
 
 \subsection{Tercer contenedor: generar un número aleatorio y mostrarlo por pantalla.}
 
-\subsubsection{TODO}
+\subsubsection{Creación imagen numero}
+\par Existen imágenes oficiales, pero en este caso creo una sencilla a partir de una de ellas.
+La creación de esta imagen es exactamente igual que las anteriores cambiando el nombre del script.
+\par \textbf{Dockerfile3}
+\begin{listing}
+    # 2 capas de esta nueva imagen
+    FROM ubuntu
+    
+    # Puede ir en cualquier nivel de la imagen, normalmente al inicio
+    LABEL version=1.0
+    LABEL description="Muestra un numero aleatorio por pantalla cada segundo." 
+    LABEL vendor=elenatablas
+    
+    COPY numero.sh /numero.sh
+    ENTRYPOINT ["/numero.sh"] 
+\end{listing}
 
-\begin{listing}[style=consola]
-    $ 
+\par \textbf{numero.sh}
+\par Este script genera y muestra un número aleatorio cada segundo durante su ejecución.
+\begin{listing}
+    #!/bin/bash
+
+    while true; do echo $(($RANDOM)); sleep 1; done  
 \end{listing}

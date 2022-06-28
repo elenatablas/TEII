@@ -1,4 +1,4 @@
-# 2 capas de nuestra imagen
+# 2 capas de esta nueva imagen
 FROM ubuntu
 
 # Puede ir en cualquier nivel de la imagen, normalmente al inicio

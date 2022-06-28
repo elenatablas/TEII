@@ -1,4 +1,4 @@
-# 2 capas de nuestra imagen
+# 2 capas de esta nueva imagen
 FROM ubuntu
 
 # Puede ir en cualquier nivel de la imagen, normalmente al inicio
@@ -8,16 +8,3 @@ LABEL vendor=elenatablas
 
 COPY fecha.sh /fecha.sh
 ENTRYPOINT ["/fecha.sh"]
-
-# Para saber las capas que tiene
-# docker history -H fecha:latest
-
-
-
-# docker logs -f sad_hermann 
-# Iniciando container...
-
-# Construir imagen a partir del Dockerfile
-# docker build [-t|--tag] [nombre-imagen-resultante] .
-# Ejemplo: docker build -t fecha .
-
