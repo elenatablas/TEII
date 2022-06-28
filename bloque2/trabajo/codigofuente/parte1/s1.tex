@@ -1,35 +1,92 @@
 
 \subsection{Pasos VirtualBox}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Crear una VM mediante el Shell de VirtualBox, Vboxmanage: 1GB de ram, 2 cpus, 8 GB de disco duro SATA.}
 
+\par \textbf{El primer paso} para crear una máquina virtual es usar el comando \texttt{createvm},
+que su única función es construir un archivo \texttt{XML} que define la nueva maquina virtual.
+La opción \texttt{--register} sirve para importar la definición de la maquina virtual
+dentro de Oracle VM VirtualBox, aunque también se puede realizar con el comando 
+\texttt{registervm}. El uso del parámetro \texttt{--name} es obligatorio y en este caso 
+nombraré mi primera VM como \textit{teii-server}, adicionalmente incluyo el tipo de 
+sistema operativo que tengo intención de instalar en esta máquina, como se muestra en 
+la Figura \ref{fig:vboxmanage-createvm}.
+%%% IMAGEN VBOXMANAGE CREATEVM %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-createvm}
+    \centering
+    \caption{Definición e importación de la VM \textit{teii-server} dentro de \texttt{VirtualBox}.}
+    \label{fig:vboxmanage-createvm}
+ \end{figure}
+\par Esta máquina virtual está vacía, en los siguientes pasos tengo que 
+configurar la CPU, RAM, red y el disco duro. Además, en la siguiente sección 
+instalo el sistema operativo. 
+%%% IMAGEN VBOXMANAGE SHOWVMINFO INICIAL%%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-showvminfo-inicial}
+    \centering
+    \caption{Información inicial de la \texttt{VM} \textit{teii-server}.}
+    \label{fig:vboxmanage-showvminfo-inicial}
+ \end{figure}
+\par El comando \texttt{showvminfo} muestra la 
+información de la VM, en este caso es la configuración inicial por defecto y 
+se puede comprobar en la Figura \ref{fig:vboxmanage-showvminfo-inicial} como la configuración impuesta no es la que quiero.
+Por tanto, en \textbf{el segundo paso} modifico el número de CPUs y el tamaño de la RAM con el comando 
+\texttt{modifyvm} y compruebo que la información se ha configurado correctamente en la Figura \ref{fig:vboxmanage-showvminfo-segundo-paso}.
 \begin{listing}[style=consola]
-    $ VBoxManage list vms
+    $ VBoxManage modifyvm teii-server --cpus 2 --memory 1024
 \end{listing}
+%%% IMAGEN VBOXMANAGE SHOWVMINFO SEGUNDO PASO %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-showvminfo-segundo-paso}
+    \centering
+    \caption{Información modificada de la VM \textit{teii-server}.}
+    \label{fig:vboxmanage-showvminfo-segundo-paso}
+ \end{figure}
 
-\par El primer paso es crear  una máquina virtual 
-
+\par \textbf{El tercer paso} es la creación de un disco duro virtual. Como en un 
+ordenador real, la VM necesita uno para poder bootear y almacenar información del sistema y del usuario. 
+Para ello debo utilizar tres comandos.
+\begin{itemize}
+    \item Comando \texttt{createhd}: crea una imagen de disco en formato \texttt{VDI}.
+    Si el directorio que se le pasa como parámetro no existe, \texttt{VirtualBox} lo crea.
+    %%% IMAGEN VBOXMANAGE CREATEHD %%%
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{vboxmanage-createhd}
+        \centering
+        \caption{Creación de una imagen de disco de 8GB.}
+        \label{fig:vboxmanage-createhd}
+    \end{figure}
+    \item Comando \texttt{storagectl}: añade un controladore de alamacenamiento, en este caso elijo \texttt{Serial ATA (SATA)}.
 \begin{listing}[style=consola]
-    $ VBoxManage createvm --name Linux-Ubuntu --ostype Ubuntu_64 --register
-    $ VBoxManage modifyvm Linux-Ubuntu --memory 2048
-    $ VBoxManage createhd --filename /home/alumno/disco.vdi --size 1024
-    $ VBoxManage storagectl Linux-Ubuntu --name "SATA Controller" --add sata -- controller IntelAhci
-    $ VBoxManage storageattach Linux-Ubuntu --storagectl "SATA Controller" -- type HDD --port 1 --device 0 --medium /home/alumno/disco.vdi
+    $ VBoxManage storagectl teii-server  --name "SATA Controller" --add sata --bootable on
 \end{listing}
+    \item Comando \texttt{storageattach}: asocia el nuevo disco duro virtual con el controlador.
+\begin{listing}[style=consola]
+    $ VBoxManage storageattach teii-server --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium /Users/elenatablas/VirtualBox\ VMs/teii-server/teii-server.vdi
+\end{listing}
+\end{itemize}
+\par Compruebo que la información del nuevo disco duro virtual es correcta como indica la Figura \ref{fig:vboxmanage-showmediuminfo-inicial}.
+%%% IMAGEN VBOXMANAGE SHOWMEDIUMINFO INICIAL %%%
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{vboxmanage-showmediuminfo-inicial}
+    \centering
+    \caption{Información del nuevo disco duro virtual usado en la VM \textit{teii-server}.}
+    \label{fig:vboxmanage-showmediuminfo-inicial}
+ \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Instalar ubuntu-server en la máquina. Instalarle el servicio nginx a la máquina.}
-
-\begin{listing}[style=consola]
-    $ VBoxManage storagectl Linux-Ubuntu --name "IDE Controller" --add ide -- controller PIIX4
-    $ VBoxManage storageattach Linux-Ubuntu --storagectl "IDE Controller" -- type DVDDrive --port 1 --device 0 --medium /home/alumno/ubuntu-18.04.4-server-amd64.iso
-\end{listing}
-
 
 \begin{listing}[style=consola]
     $ VBoxManage showvminfo Linux-Ubuntu
 \end{listing}
 
 \subsubsection{Instalar Ubuntu-desktop en otra máquina. Instalar un navegador web.}
+\begin{listing}[style=consola]
+    $ VBoxManage createvm --name teii-desktop --ostype Ubuntu_64 --register
+\end{listing}
 
 \begin{listing}[style=consola]
     $ VBoxManage createvm --name Linux-Ubuntu --ostype Ubuntu_64 --register
@@ -41,29 +98,38 @@
     $ VBoxManage storageattach Linux-Ubuntu --storagectl "IDE Controller" -- type DVDDrive --port 1 --device 0 --medium /home/alumno/ubuntu-18.04.4-server-amd64.iso
 \end{listing}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Comprobar que podemos acceder al servidor web desde un navegador en el host.}
 \begin{listing}[style=consola]
     $ 
 \end{listing}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Comprobar que podemos acceder al servidor web desde un navegador en la máquina guest desktop.}
 
 \begin{listing}[style=consola]
     $ 
 \end{listing}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Transformar el disco de la máquina de formato .vdi a formato qcow2.}
 
 \begin{listing}[style=consola]
     $ 
 \end{listing}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Redimensionar la maquina original servidor de VirtualBox con la utilidad Vboxmanage: 2GB de RAM y 10GB disco duro.} 
 
 \begin{listing}[style=consola]
     $ 
 \end{listing}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Destruir las máquinas virtuales (utilizando comandos).}
 
 \begin{listing}[style=consola]
